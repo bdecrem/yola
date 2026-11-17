@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Carmine Bloom No. 4 — Torn
+  The literal reading: the painting itself is ripped apart. The saturated
+  bloom is cut into polygonal shards, each piece displaced and rotated
+  along radial fault lines, dark voids opening between them. Corners fly
+  furthest, three fragments break free entirely, and a white-hot rupture
+  glows where the tear began. Fully saturated reds throughout.
+  Pure shapes, gradients and filters - no outside fonts or images.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" role="img"
+     aria-label="Saturated red bloom painting torn into displaced shards with dark voids and a white-hot rupture">
+  <title>Carmine Bloom No. 4 — Torn</title>
+
+  <defs>
+    <!-- the void behind the tear -->
+    <linearGradient id="void" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%"   stop-color="#0c0206"/>
+      <stop offset="60%"  stop-color="#160309"/>
+      <stop offset="100%" stop-color="#1e040b"/>
+    </linearGradient>
+
+    <radialGradient id="voidGlow" cx="0.48" cy="0.49" r="0.6">
+      <stop offset="0%"   stop-color="#ff1a3c" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff1a3c" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="flashGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="45%"  stop-color="#ff5c7a" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ff5c7a" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="vig" cx="0.5" cy="0.48" r="0.9">
+      <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
+      <stop offset="76%"  stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.5"/>
+    </radialGradient>
+
+    <!-- ===== the artwork that gets torn ===== -->
+    <linearGradient id="artBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#ff1a3c"/>
+      <stop offset="100%" stop-color="#e60026"/>
+    </linearGradient>
+
+    <filter id="fleshA" x="-35%" y="-35%" width="170%" height="170%">
+      <feTurbulence type="turbulence" baseFrequency="0.005 0.008" numOctaves="3" seed="23" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="52" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="fleshB" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="turbulence" baseFrequency="0.011 0.016" numOctaves="3" seed="31" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="fleshC" x="-25%" y="-25%" width="150%" height="150%">
+      <feTurbulence type="turbulence" baseFrequency="0.022 0.030" numOctaves="2" seed="47" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="soft10" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
+
+    <g id="art">
+      <rect x="-40" y="-40" width="1080" height="880" fill="url(#artBg)"/>
+      <g filter="url(#fleshA)">
+        <ellipse cx="500" cy="400" rx="640" ry="240" fill="#ff2d55" stroke="#ffb3c0" stroke-opacity="0.25" transform="rotate(12 500 400)"/>
+        <ellipse cx="500" cy="400" rx="652" ry="234" fill="#ff0f3f" stroke="#ffb3c0" stroke-opacity="0.25" transform="rotate(54 500 400)"/>
+        <ellipse cx="500" cy="400" rx="636" ry="244" fill="#f50057" stroke="#ffb3c0" stroke-opacity="0.25" transform="rotate(97 500 400)"/>
+        <ellipse cx="500" cy="400" rx="648" ry="230" fill="#ff1a4d" stroke="#ffb3c0" stroke-opacity="0.25" transform="rotate(141 500 400)"/>
+        <ellipse cx="500" cy="400" rx="640" ry="240" fill="#ff2d55" stroke="#ffb3c0" stroke-opacity="0.25" transform="rotate(183 500 400)"/>
+        <ellipse cx="500" cy="400" rx="650" ry="238" fill="#f50057" stroke="#ffb3c0" stroke-opacity="0.25" transform="rotate(227 500 400)"/>
+        <ellipse cx="500" cy="400" rx="644" ry="240" fill="#ff0f3f" stroke="#ffb3c0" stroke-opacity="0.25" transform="rotate(269 500 400)"/>
+        <ellipse cx="500" cy="400" rx="648" ry="236" fill="#ff1a4d" stroke="#ffb3c0" stroke-opacity="0.25" transform="rotate(311 500 400)"/>
+      </g>
+      <g filter="url(#fleshA)">
+        <ellipse cx="500" cy="400" rx="480" ry="185" fill="#e60026" stroke="#ff5c7a" stroke-opacity="0.3" transform="rotate(26 500 400)"/>
+        <ellipse cx="500" cy="400" rx="494" ry="178" fill="#d90429" stroke="#ff5c7a" stroke-opacity="0.3" transform="rotate(71 500 400)"/>
+        <ellipse cx="500" cy="400" rx="472" ry="188" fill="#e60026" stroke="#ff5c7a" stroke-opacity="0.3" transform="rotate(118 500 400)"/>
+        <ellipse cx="500" cy="400" rx="490" ry="180" fill="#d90429" stroke="#ff5c7a" stroke-opacity="0.3" transform="rotate(163 500 400)"/>
+        <ellipse cx="500" cy="400" rx="486" ry="184" fill="#e60026" stroke="#ff5c7a" stroke-opacity="0.3" transform="rotate(209 500 400)"/>
+        <ellipse cx="500" cy="400" rx="492" ry="179" fill="#d90429" stroke="#ff5c7a" stroke-opacity="0.3" transform="rotate(255 500 400)"/>
+      </g>
+      <g filter="url(#fleshB)">
+        <ellipse cx="500" cy="400" rx="330" ry="140" fill="#c90030" transform="rotate(34 500 400)"/>
+        <ellipse cx="500" cy="400" rx="320" ry="135" fill="#b3001b" transform="rotate(88 500 400)"/>
+        <ellipse cx="500" cy="400" rx="325" ry="138" fill="#c90030" transform="rotate(142 500 400)"/>
+        <ellipse cx="500" cy="400" rx="318" ry="134" fill="#b3001b" transform="rotate(196 500 400)"/>
+        <ellipse cx="500" cy="400" rx="328" ry="139" fill="#c90030" transform="rotate(250 500 400)"/>
+      </g>
+      <g filter="url(#fleshC)">
+        <circle cx="500" cy="400" r="150" fill="#b3001b"/>
+        <circle cx="500" cy="400" r="100" fill="#d90429"/>
+        <circle cx="500" cy="400" r="60"  fill="#ff1a3c"/>
+        <circle cx="500" cy="400" r="28"  fill="#ff4d6d"/>
+      </g>
+      <g fill="none" stroke="#ff8095" stroke-linecap="round" filter="url(#fleshC)">
+        <path d="M 500 400 Q 600 350 720 330"   stroke-width="3"   opacity="0.5"/>
+        <path d="M 500 400 Q 640 410 800 460"   stroke-width="3.4" opacity="0.45"/>
+        <path d="M 500 400 Q 610 480 710 560"   stroke-width="3"   opacity="0.5"/>
+        <path d="M 500 400 Q 540 540 580 660"   stroke-width="3.4" opacity="0.4"/>
+        <path d="M 500 400 Q 440 540 360 640"   stroke-width="3"   opacity="0.5"/>
+        <path d="M 500 400 Q 370 500 260 560"   stroke-width="3.2" opacity="0.45"/>
+        <path d="M 500 400 Q 350 420 220 400"   stroke-width="3.4" opacity="0.4"/>
+        <path d="M 500 400 Q 380 330 270 260"   stroke-width="3"   opacity="0.5"/>
+        <path d="M 500 400 Q 460 280 440 160"   stroke-width="3.2" opacity="0.45"/>
+        <path d="M 500 400 Q 560 270 620 160"   stroke-width="3"   opacity="0.5"/>
+      </g>
+      <g fill="none" stroke="#b3001b" stroke-linecap="round" filter="url(#fleshC)">
+        <path d="M 500 400 C 560 320 620 290 700 270" stroke-width="4"/>
+        <path d="M 500 400 C 590 380 680 390 770 440" stroke-width="4"/>
+        <path d="M 500 400 C 540 470 600 520 690 550" stroke-width="3.4"/>
+        <path d="M 500 400 C 420 460 340 490 250 500" stroke-width="3.4"/>
+        <path d="M 500 400 C 450 300 420 240 400 160" stroke-width="3.2"/>
+        <path d="M 500 400 C 370 340 280 300 180 280" stroke-width="3"/>
+      </g>
+      <g fill="#ffd700" filter="url(#fleshC)">
+        <circle cx="702" cy="268" r="7"   opacity="0.95"/>
+        <circle cx="772" cy="442" r="7.5" opacity="0.95"/>
+        <circle cx="692" cy="552" r="6.5" opacity="0.9"/>
+        <circle cx="248" cy="502" r="6.5" opacity="0.9"/>
+        <circle cx="398" cy="158" r="6"   opacity="0.9"/>
+        <circle cx="178" cy="278" r="6"   opacity="0.9"/>
+      </g>
+    </g>
+
+    <!-- ===== fault lines: clip shards of the artwork ===== -->
+    <clipPath id="s1"><polygon points="380,320 560,270 620,400 500,490 360,430"/></clipPath>
+    <clipPath id="s2"><polygon points="300,200 380,320 560,270 600,120 420,90"/></clipPath>
+    <clipPath id="s3"><polygon points="560,270 620,400 900,320 780,200"/></clipPath>
+    <clipPath id="s4"><polygon points="780,200 1060,140 1060,420 900,320"/></clipPath>
+    <clipPath id="s5"><polygon points="620,400 900,320 980,540 700,580"/></clipPath>
+    <clipPath id="s6"><polygon points="700,580 980,540 1060,780 760,840 640,700"/></clipPath>
+    <clipPath id="s7"><polygon points="500,490 620,400 700,580 640,700 520,720"/></clipPath>
+    <clipPath id="s8"><polygon points="360,430 500,490 520,720 380,780 260,660"/></clipPath>
+    <clipPath id="s9"><polygon points="260,660 380,780 140,840 40,700"/></clipPath>
+    <clipPath id="s10"><polygon points="60,380 200,500 260,660 120,600"/></clipPath>
+    <clipPath id="s11"><polygon points="180,320 300,200 60,180 40,300"/></clipPath>
+    <clipPath id="s12"><polygon points="180,320 300,200 360,430 200,500 60,380"/></clipPath>
+    <clipPath id="s13"><polygon points="600,120 780,200 780,20 640,-60 560,40"/></clipPath>
+    <clipPath id="s14"><polygon points="420,90 160,-60 440,-60 560,40 600,120"/></clipPath>
+    <clipPath id="s15"><polygon points="60,180 160,-60 40,-60 0,120 40,300"/></clipPath>
+    <clipPath id="s16"><polygon points="380,780 520,720 480,860 340,860"/></clipPath>
+    <clipPath id="s17"><polygon points="520,720 640,700 700,800 560,840"/></clipPath>
+    <clipPath id="s18"><polygon points="0,300 60,380 120,600 40,700 0,620"/></clipPath>
+    <clipPath id="f1"><polygon points="930,60 985,88 940,112"/></clipPath>
+    <clipPath id="f2"><polygon points="120,720 182,758 108,782"/></clipPath>
+    <clipPath id="f3"><polygon points="860,700 922,738 848,772"/></clipPath>
+
+    <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="27" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix"
+        values="0 0 0 0 0.55
+                0 0 0 0 0.10
+                0 0 0 0 0.16
+                0 0 0 0.35 0"/>
+    </filter>
+  </defs>
+
+  <!-- the void -->
+  <rect x="0" y="0" width="1000" height="800" fill="url(#void)"/>
+  <rect x="0" y="0" width="1000" height="800" fill="url(#voidGlow)"/>
+
+  <!-- trails of the escaping pieces -->
+  <g stroke-linecap="round">
+    <line x1="700" y1="240" x2="1040" y2="150" stroke="#ff2d55" stroke-width="8" opacity="0.35"/>
+    <line x1="760" y1="600" x2="1080" y2="800" stroke="#ff2d55" stroke-width="9" opacity="0.32"/>
+    <line x1="660" y1="160" x2="730" y2="-40"  stroke="#ff5c7a" stroke-width="7" opacity="0.3"/>
+    <line x1="480" y1="60"  x2="520" y2="-60"  stroke="#ff5c7a" stroke-width="6" opacity="0.25"/>
+    <line x1="120" y1="160" x2="60"  y2="-40"  stroke="#ff5c7a" stroke-width="5" opacity="0.25"/>
+    <line x1="900" y1="120" x2="1110" y2="0"   stroke="#ff2d55" stroke-width="7" opacity="0.4"/>
+    <line x1="200" y1="700" x2="10"  y2="840"  stroke="#ff2d55" stroke-width="7" opacity="0.4"/>
+    <line x1="800" y1="680" x2="1050" y2="860" stroke="#ff2d55" stroke-width="8" opacity="0.4"/>
+  </g>
+
+  <!-- ===== the torn artwork, shard by shard ===== -->
+  <g transform="translate(8 6) rotate(2 484 382)" clip-path="url(#s1)">
+    <use href="#art"/>
+    <polygon points="380,320 560,270 620,400 500,490 360,430" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(18 -14) rotate(3 452 196)" clip-path="url(#s2)">
+    <use href="#art"/>
+    <polygon points="300,200 380,320 560,270 600,120 420,90" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(42 -20) rotate(5 715 297)" clip-path="url(#s3)">
+    <use href="#art"/>
+    <polygon points="560,270 620,400 900,320 780,200" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(70 -40) rotate(8 950 270)" clip-path="url(#s4)">
+    <use href="#art"/>
+    <polygon points="780,200 1060,140 1060,420 900,320" fill="none" stroke="#ffe0d6" stroke-opacity="0.35" stroke-width="2"/>
+  </g>
+  <g transform="translate(55 25) rotate(6 800 460)" clip-path="url(#s5)">
+    <use href="#art"/>
+    <polygon points="620,400 900,320 980,540 700,580" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(80 60) rotate(9 828 688)" clip-path="url(#s6)">
+    <use href="#art"/>
+    <polygon points="700,580 980,540 1060,780 760,840 640,700" fill="none" stroke="#ffe0d6" stroke-opacity="0.35" stroke-width="2"/>
+  </g>
+  <g transform="translate(30 35) rotate(4 596 578)" clip-path="url(#s7)">
+    <use href="#art"/>
+    <polygon points="500,490 620,400 700,580 640,700 520,720" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(8 30) rotate(2 424 616)" clip-path="url(#s8)">
+    <use href="#art"/>
+    <polygon points="360,430 500,490 520,720 380,780 260,660" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(-40 45) rotate(6 205 745)" clip-path="url(#s9)">
+    <use href="#art"/>
+    <polygon points="260,660 380,780 140,840 40,700" fill="none" stroke="#ffe0d6" stroke-opacity="0.35" stroke-width="2"/>
+  </g>
+  <g transform="translate(-35 30) rotate(5 160 535)" clip-path="url(#s10)">
+    <use href="#art"/>
+    <polygon points="60,380 200,500 260,660 120,600" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(-45 -25) rotate(6 145 250)" clip-path="url(#s11)">
+    <use href="#art"/>
+    <polygon points="180,320 300,200 60,180 40,300" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(-30 5) rotate(4 220 366)" clip-path="url(#s12)">
+    <use href="#art"/>
+    <polygon points="180,320 300,200 360,430 200,500 60,380" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(30 -60) rotate(10 672 64)" clip-path="url(#s13)">
+    <use href="#art"/>
+    <polygon points="600,120 780,200 780,20 640,-60 560,40" fill="none" stroke="#ffe0d6" stroke-opacity="0.35" stroke-width="2"/>
+  </g>
+  <g transform="translate(10 -50) rotate(12 340 -10)" clip-path="url(#s14)">
+    <use href="#art"/>
+    <polygon points="420,90 160,-60 440,-60 560,40 600,120" fill="none" stroke="#ffe0d6" stroke-opacity="0.35" stroke-width="2"/>
+  </g>
+  <g transform="translate(-30 -40) rotate(8 65 45)" clip-path="url(#s15)">
+    <use href="#art"/>
+    <polygon points="60,180 160,-60 40,-60 0,120 40,300" fill="none" stroke="#ffe0d6" stroke-opacity="0.35" stroke-width="2"/>
+  </g>
+  <g transform="translate(0 55) rotate(3 430 800)" clip-path="url(#s16)">
+    <use href="#art"/>
+    <polygon points="380,780 520,720 480,860 340,860" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(10 60) rotate(4 605 765)" clip-path="url(#s17)">
+    <use href="#art"/>
+    <polygon points="520,720 640,700 700,800 560,840" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(-45 15) rotate(5 44 520)" clip-path="url(#s18)">
+    <use href="#art"/>
+    <polygon points="0,300 60,380 120,600 40,700 0,620" fill="none" stroke="#ffe0d6" stroke-opacity="0.3" stroke-width="1.6"/>
+  </g>
+
+  <!-- fragments that broke free entirely -->
+  <g transform="translate(140 -85) rotate(25 952 87)" clip-path="url(#f1)">
+    <use href="#art"/>
+    <polygon points="930,60 985,88 940,112" fill="none" stroke="#ffe0d6" stroke-opacity="0.5" stroke-width="2"/>
+  </g>
+  <g transform="translate(-125 95) rotate(-22 137 753)" clip-path="url(#f2)">
+    <use href="#art"/>
+    <polygon points="120,720 182,758 108,782" fill="none" stroke="#ffe0d6" stroke-opacity="0.5" stroke-width="2"/>
+  </g>
+  <g transform="translate(150 115) rotate(28 877 737)" clip-path="url(#f3)">
+    <use href="#art"/>
+    <polygon points="860,700 922,738 848,772" fill="none" stroke="#ffe0d6" stroke-opacity="0.5" stroke-width="2"/>
+  </g>
+
+  <!-- the rupture where the tear began -->
+  <circle cx="480" cy="390" r="120" fill="url(#flashGlow)"/>
+  <circle cx="480" cy="390" r="52"  fill="#ff5c7a" opacity="0.5" filter="url(#soft10)"/>
+  <circle cx="480" cy="390" r="24"  fill="#ffffff"/>
+  <g stroke="#ffffff" stroke-width="2.5" opacity="0.85" stroke-linecap="round">
+    <line x1="480" y1="360" x2="480" y2="322"/>
+    <line x1="480" y1="360" x2="480" y2="330" transform="rotate(45 480 390)"/>
+    <line x1="480" y1="360" x2="480" y2="326" transform="rotate(90 480 390)"/>
+    <line x1="480" y1="360" x2="480" y2="330" transform="rotate(135 480 390)"/>
+    <line x1="480" y1="360" x2="480" y2="322" transform="rotate(180 480 390)"/>
+    <line x1="480" y1="360" x2="480" y2="330" transform="rotate(225 480 390)"/>
+    <line x1="480" y1="360" x2="480" y2="326" transform="rotate(270 480 390)"/>
+    <line x1="480" y1="360" x2="480" y2="330" transform="rotate(315 480 390)"/>
+  </g>
+  <circle cx="480" cy="390" r="92"  fill="none" stroke="#ffffff" stroke-width="2"   stroke-dasharray="3 10" opacity="0.4"/>
+  <circle cx="480" cy="390" r="150" fill="none" stroke="#ff5c7a" stroke-width="1.6" stroke-dasharray="2 14" opacity="0.3"/>
+
+  <!-- vignette + grain -->
+  <rect x="0" y="0" width="1000" height="800" fill="url(#vig)"/>
+  <rect x="0" y="0" width="1000" height="800" filter="url(#grain)" opacity="0.14" style="mix-blend-mode:overlay"/>
+
+  <!-- signature -->
+  <text x="950" y="774" text-anchor="end" font-family="Georgia, 'Times New Roman', serif"
+        font-size="15" fill="#ffd6dd" opacity="0.7">Carmine Bloom No. 4 — Torn — 2026</text>
+</svg>
