@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<!--
+    PET-ROCK 3000 GALLERY PRESENTS:
+    "Sedimentary Resonance" - generative abstract paintings.
+    Strata accumulate from the bottom; turbulence above, crystalline chord
+    forms rising through the archive. Seeded per Art Blocks convention.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sedimentary Resonance — Generative Paintings</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Anthropic Brand Colors */
+        :root {
+            --anthropic-dark: #141413;
+            --anthropic-light: #faf9f5;
+            --anthropic-mid-gray: #b0aea5;
+            --anthropic-light-gray: #e8e6dc;
+            --anthropic-orange: #d97757;
+            --anthropic-blue: #6a9bcc;
+            --anthropic-green: #788c5d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--anthropic-light) 0%, #f5f3ee 100%);
+            min-height: 100vh;
+            color: var(--anthropic-dark);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(20, 20, 19, 0.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar h1 {
+            font-family: 'Lora', serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .sidebar .subtitle {
+            color: var(--anthropic-mid-gray);
+            font-size: 14px;
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+
+        .control-section { margin-bottom: 32px; }
+
+        .control-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--anthropic-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-section h3::before {
+            content: '•';
+            color: var(--anthropic-orange);
+            font-weight: bold;
+        }
+
+        .seed-input {
+            width: 100%;
+            background: var(--anthropic-light);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 12px;
+            border: 1px solid var(--anthropic-light-gray);
+            text-align: center;
+        }
+
+        .seed-input:focus {
+            outline: none;
+            border-color: var(--anthropic-orange);
+            box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.1);
+            background: white;
+        }
+
+        .seed-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .regen-button { margin-bottom: 0; }
+
+        .control-group { margin-bottom: 20px; }
+
+        .control-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 4px;
+            background: var(--anthropic-light-gray);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            background: #c86641;
+        }
+
+        .slider-container input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .value-display {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .color-group { margin-bottom: 16px; }
+
+        .color-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+            margin-bottom: 4px;
+        }
+
+        .color-picker-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-picker-container input[type="color"] {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: none;
+            padding: 0;
+        }
+
+        .color-value {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+        }
+
+        .button {
+            background: var(--anthropic-orange);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .button:hover {
+            background: #c86641;
+            transform: translateY(-1px);
+        }
+
+        .button:active { transform: translateY(0); }
+
+        .button.secondary { background: var(--anthropic-blue); }
+        .button.secondary:hover { background: #5a8bb8; }
+
+        .button.tertiary { background: var(--anthropic-green); }
+        .button.tertiary:hover { background: #6b7b52; }
+
+        .button-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .button-row .button { flex: 1; }
+
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        #canvas-container {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(20, 20, 19, 0.1);
+            background: white;
+        }
+
+        #canvas-container canvas {
+            display: block;
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--anthropic-mid-gray);
+        }
+
+        @media (max-width: 600px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; }
+            .canvas-area { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>Sedimentary Resonance</h1>
+            <div class="subtitle">Strata of a painted archive — turbulence above, crystal chord forms below. Each seed is a core sample from a different millennium.</div>
+
+            <!-- Seed Section (ALWAYS KEEP THIS) -->
+            <div class="control-section">
+                <h3>Seed</h3>
+                <input type="number" id="seed-input" class="seed-input" value="12345" onchange="updateSeed()">
+                <div class="seed-controls">
+                    <button class="button secondary" onclick="previousSeed()">← Prev</button>
+                    <button class="button secondary" onclick="nextSeed()">Next →</button>
+                </div>
+                <button class="button tertiary regen-button" onclick="randomSeedAndUpdate()">↻ Random</button>
+            </div>
+
+            <!-- Parameters Section -->
+            <div class="control-section">
+                <h3>Parameters</h3>
+
+                <div class="control-group">
+                    <label>Strata Count</label>
+                    <div class="slider-container">
+                        <input type="range" id="strataCount" min="4" max="14" step="1" value="9" oninput="updateParam('strataCount', this.value)">
+                        <span class="value-display" id="strataCount-value">9</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Sediment Density</label>
+                    <div class="slider-container">
+                        <input type="range" id="sedimentDensity" min="0.2" max="1.5" step="0.05" value="0.7" oninput="updateParam('sedimentDensity', this.value)">
+                        <span class="value-display" id="sedimentDensity-value">0.7</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Turbulence</label>
+                    <div class="slider-container">
+                        <input type="range" id="turbulence" min="0.1" max="2.5" step="0.05" value="1.0" oninput="updateParam('turbulence', this.value)">
+                        <span class="value-display" id="turbulence-value">1.0</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Crystal Intensity</label>
+                    <div class="slider-container">
+                        <input type="range" id="crystalIntensity" min="0" max="1" step="0.05" value="0.55" oninput="updateParam('crystalIntensity', this.value)">
+                        <span class="value-display" id="crystalIntensity-value">0.55</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Rupture Probability</label>
+                    <div class="slider-container">
+                        <input type="range" id="ruptureProb" min="0" max="0.5" step="0.01" value="0.12" oninput="updateParam('ruptureProb', this.value)">
+                        <span class="value-display" id="ruptureProb-value">0.12</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Grain Opacity</label>
+                    <div class="slider-container">
+                        <input type="range" id="grainOpacity" min="5" max="60" step="1" value="28" oninput="updateParam('grainOpacity', this.value)">
+                        <span class="value-display" id="grainOpacity-value">28</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colors Section -->
+            <div class="control-section">
+                <h3>Colors</h3>
+                <div class="color-group">
+                    <label>Deep Earth (bass note)</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color1" value="#26221e" onchange="updateColor('color1', this.value)">
+                        <span class="color-value" id="color1-value">#26221e</span>
+                    </div>
+                </div>
+                <div class="color-group">
+                    <label>Oxide (dominant chord)</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color2" value="#b34a32" onchange="updateColor('color2', this.value)">
+                        <span class="color-value" id="color2-value">#b34a32</span>
+                    </div>
+                </div>
+                <div class="color-group">
+                    <label>Mineral (resonance)</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color3" value="#6a8c7d" onchange="updateColor('color3', this.value)">
+                        <span class="color-value" id="color3-value">#6a8c7d</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions Section (ALWAYS KEEP THIS) -->
+            <div class="control-section">
+                <h3>Actions</h3>
+                <div class="button-row">
+                    <button class="button" onclick="regenerate()">Regenerate</button>
+                    <button class="button" onclick="resetParameters()">Reset</button>
+                </div>
+                <div class="button-row" style="margin-top:8px">
+                    <button class="button secondary" onclick="downloadPNG()">Download PNG</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-area">
+            <div id="canvas-container">
+                <div class="loading">Laying down strata…</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════
+        // SEDIMENTARY RESONANCE — generative abstract painting
+        // An archive is deposited bottom-up. Particles streak along a layered
+        // noise field; crystalline chord-forms rise through the record.
+        // ═══════════════════════════════════════════════════════════════════════
+
+        let params = {
+            seed: 12345,
+            strataCount: 9,          // number of sedimentation events
+            sedimentDensity: 0.7,    // particle budget multiplier per stratum
+            turbulence: 1.0,         // noise field strength
+            crystalIntensity: 0.55,  // prominence of geometric chord forms
+            ruptureProb: 0.12,       // chance a stratum ruptures (bright fissure)
+            grainOpacity: 28,        // pigment graininess (paper tooth)
+            colorPalette: ['#26221e', '#b34a32', '#6a8c7d']
+        };
+
+        let defaultParams = {...params};
+
+        // Pentatonic tonal band: quantized color steps derived from the three
+        // anchors. Discrete "notes" so strata sing in harmony, not in noise.
+        function buildScale() {
+            const anchors = params.colorPalette.map(hex => hexToRgb(hex));
+            const notes = [];
+            // 5 notes: earth, earth-oxide blend, oxide, oxide-mineral, mineral
+            const ratios = [0, 0.28, 0.55, 0.78, 1.0];
+            for (const r of ratios) {
+                const idx = r * (anchors.length - 1);
+                const i0 = Math.floor(idx), i1 = Math.min(anchors.length - 1, i0 + 1);
+                const t = idx - i0;
+                notes.push({
+                    r: lerp(anchors[i0].r, anchors[i1].r, t),
+                    g: lerp(anchors[i0].g, anchors[i1].g, t),
+                    b: lerp(anchors[i0].b, anchors[i1].b, t)
+                });
+            }
+            return notes;
+        }
+
+        function hexToRgb(hex) {
+            const n = parseInt(hex.slice(1), 16);
+            return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SETUP / RENDER PIPELINE
+        // ═══════════════════════════════════════════════════   ═════════════════
+
+        function setup() {
+            let canvas = createCanvas(1200, 900);
+            canvas.parent('canvas-container');
+            pixelDensity(1);
+            document.querySelector('.loading').style.display = 'none';
+            initializeSystem();
+        }
+
+        function initializeSystem() {
+            randomSeed(params.seed);
+            noiseSeed(params.seed * 7919 + 13);
+
+            // Paint the ground: a vertical wash from deep to pale, like the
+            // table the archive is laid on catching stray light.
+            const c = hexToRgb(params.colorPalette[0]);
+            for (let y = 0; y < height; y++) {
+                const t = y / height;
+                stroke(c.r + (250 - c.r) * t * 0.14,
+                       c.g + (249 - c.g) * t * 0.14,
+                       c.b + (245 - c.b) * t * 0.14);
+                line(0, y, width, y);
+            }
+
+            buildStrata();
+            drawCrystals();
+            applyGrain();
+
+            // Signature: the archive is signed like a lithograph plate.
+            drawSignature();
+        }
+
+        // ---------- sedimentation events ----------
+        let strataPlan = [];
+
+        function buildStrata() {
+            strataPlan = [];
+            const N = params.strataCount;
+            // Deep-time compression: earlier strata are tighter (bottom),
+            // later strata widen — a painstakingly tuned growth curve.
+            const raw = [];
+            for (let i = 0; i < N; i++) raw.push(0.6 + i * (1.6 / max(1, N - 1)));
+            const sum = raw.reduce((a, b) => a + b, 0);
+            let yCursor = height;
+            for (let i = 0; i < N; i++) {
+                const h = (raw[i] / sum) * height * 0.92;
+                const yTop = yCursor - h;
+                strataPlan.push({
+                    yTop, yBottom: yCursor,
+                    note: i % 5,                       // pentatonic step
+                    energy: pow(1 - i / max(1, N - 1), 0.7), // later = stronger
+                    dominant: false
+                });
+                yCursor = yTop;
+            }
+            // Dominant strata bend their neighbors — tonal shadow.
+            for (const s of strataPlan) {
+                if (random() < params.ruptureProb * 2.2) {
+                    s.dominant = true;
+                    s.energy = min(1, s.energy * 1.5);
+                }
+            }
+
+            for (let i = 0; i < strataPlan.length; i++) {
+                depositStratum(i);
+            }
+        }
+
+        function depositStratum(i) {
+            const s = strataPlan[i];
+            const notes = buildScale();
+            const base = notes[s.note];
+            const h = s.yBottom - s.yTop;
+
+            // Strata drift on layered value-noise (two octaves, tuned scales).
+            const f1 = 0.0022, f2 = 0.0087;
+            const phase = random(1000);
+
+            // Particle budget: density, depth-compressed
+            const count = floor(260 * params.sedimentDensity * (0.5 + s.energy));
+
+            noStroke();
+            for (let p = 0; p < count; p++) {
+                const x = random(-40, width + 40);
+                const y0 = random(s.yTop, s.yBottom);
+                const depthT = (y0 - s.yTop) / max(1, h);
+
+                // advect by field
+                const n1 = noise(x * f1, y0 * f1, phase);
+                const n2 = noise(x * f2, y0 * f2, phase + 500);
+                let vx = (n1 - 0.5) * 26 * params.turbulence + (n2 - 0.5) * 7;
+                let vy = (n2 - 0.5) * 9 * params.turbulence;
+                // strata prefer horizontal deposition
+                vy *= 0.45;
+
+                const len = 8 + abs(vx) * (2.2 + s.energy * 2.5);
+                const steps = floor(len / 3);
+
+                // color: base note, modulated by velocity (fast = bright)
+                const bright = 0.55 + 0.45 * constrain(abs(vx) / 14, 0, 1);
+                let r = base.r * bright + 40 * (1 - bright);
+                let g = base.g * bright + 36 * (1 - bright);
+                let b = base.b * bright + 30 * (1 - bright);
+
+                // dominant strata leak into neighbors (tonal shadow)
+                if (s.dominant && random() < 0.3) {
+                    const hi = notes[(s.note + 2) % 5];
+                    r = lerp(r, hi.r, 0.35);
+                    g = lerp(g, hi.g, 0.35);
+                    b = lerp(b, hi.b, 0.35);
+                }
+
+                const alpha = params.grainOpacity * (0.4 + 0.6 * (1 - depthT));
+                fill(r, g, b, alpha);
+
+                let x2 = x, y2 = y0;
+                for (let st = 0; st < steps; st++) {
+                    const nx = x2 + (vx / steps) + (noise(x2 * f2, y2 * f2, phase) - 0.5) * 5;
+                    const ny = y2 + (vy / steps);
+                    rect(x2, y2, nx - x2 + 1.4, 1.3 + depthT * 1.6);
+                    x2 = nx; y2 = ny;
+                    if (y2 < s.yTop - 6 || y2 > s.yBottom + 6) break;
+                }
+            }
+
+            // Rupture: a fissure of bright mineral cutting the stratum
+            if (s.dominant && random() < 0.8) {
+                const hi = notes[(s.note + 2) % 5];
+                let x = random(width * 0.15, width * 0.85);
+                let y = s.yBottom;
+                stroke(hi.r, hi.g, hi.b, 190);
+                strokeWeight(1 + s.energy * 2);
+                beginShape();
+                vertex(x, y);
+                while (y > s.yTop - 4) {
+                    x += (noise(x * 0.01, y * 0.02, 77) - 0.5) * 26 * params.turbulence;
+                    y -= random(6, 20);
+                    vertex(x, y);
+                }
+                endShape();
+            }
+        }
+
+        // ---------- crystalline register: chord-forms ----------
+        function drawCrystals() {
+            const notes = buildScale();
+            const mineral = params.colorPalette[2];
+            const m = hexToRgb(mineral);
+            const oxide = hexToRgb(params.colorPalette[1]);
+
+            push();
+            // Chord form rises from the lower third — a resolved geometry
+            // emerging from the archive, drawn as translucent planes.
+            const cx = width * (0.36 + 0.28 * noise(params.seed * 0.13, 4.2));
+            const cy = height * 0.66;
+            const chords = floor(3 + params.crystalIntensity * 5);
+
+            for (let k = 0; k < chords; k++) {
+                const baseAngle = noise(k * 0.7, params.seed * 0.01) * TWO_PI;
+                const spread = 0.5 + noise(k * 1.3, 9.1) * 1.1;      // radians
+                const reach  = (90 + noise(k * 0.9, 2.2) * 240) * (0.6 + params.crystalIntensity);
+                const facets = floor(3 + noise(k * 1.1, 5.5) * 3);   // 3–5 sided
+
+                push();
+                translate(cx, cy);
+                rotate(baseAngle);
+                const col = k % 2 === 0 ? m : oxide;
+                const alpha = 26 + params.crystalIntensity * 46;
+
+                for (let f = 0; f < facets; f++) {
+                    const a0 = (f / facets) * spread - spread / 2;
+                    const a1 = ((f + 1) / facets) * spread - spread / 2;
+                    const r0 = reach * (0.55 + 0.45 * noise(f * 0.8 + k, 3.3));
+                    const r1 = reach * (0.55 + 0.45 * noise((f + 1) * 0.8 + k, 3.3));
+                    fill(col.r, col.g, col.b, alpha * (0.5 + 0.5 * (f % 2)));
+                    stroke(col.r, col.g, col.b, alpha + 40);
+                    strokeWeight(1);
+                    beginShape();
+                    vertex(0, 0);
+                    vertex(cos(a0) * r0, sin(a0) * r0);
+                    vertex(cos((a0 + a1) / 2) * reach * 1.05, sin((a0 + a1) / 2) * reach * 1.05);
+                    vertex(cos(a1) * r1, sin(a1) * r1);
+                    endShape(CLOSE);
+                }
+                pop();
+            }
+
+            // Whisper lines: fine harmonic overtones radiating outward
+            const overtones = floor(14 + params.crystalIntensity * 22);
+            stroke(m.r, m.g, m.b, 60);
+            strokeWeight(0.6);
+            for (let i = 0; i < overtones; i++) {
+                const a = noise(i * 0.35, 8.8) * TWO_PI * 2;
+                const r1 = 60 + noise(i * 0.5, 1.1) * 130;
+                const r2 = r1 + 40 + noise(i * 0.9, 6.6) * 200;
+                line(cx + cos(a) * r1, cy + sin(a) * r1,
+                     cx + cos(a) * r2, cy + sin(a) * r2);
+            }
+            pop();
+        }
+
+        // ---------- paper tooth ----------
+        function applyGrain() {
+            const g = params.grainOpacity / 28;
+            loadPixels();
+            for (let i = 0; i < pixels.length; i += 4) {
+                const n = (noise((i / 4) % width * 0.9, floor((i / 4) / width) * 0.9) - 0.5) * 18 * g;
+                pixels[i]   = constrain(pixels[i] + n, 0, 255);
+                pixels[i+1] = constrain(pixels[i+1] + n, 0, 255);
+                pixels[i+2] = constrain(pixels[i+2] + n, 0, 255);
+            }
+            updatePixels();
+        }
+
+        function drawSignature() {
+            fill(250, 249, 245, 120);
+            noStroke();
+            textAlign(RIGHT, BOTTOM);
+            textSize(13);
+            textFont('Lora');
+            text(`Sedimentary Resonance · seed ${params.seed}`, width - 24, height - 18);
+        }
+
+        function regenerate() {
+            initializeSystem();
+        }
+
+        function downloadPNG() {
+            saveCanvas(`sedimentary-resonance-${params.seed}`, 'png');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // UI CONTROL HANDLERS
+        // ═══════════════════════════════════════════════════════════════════════
+
+        function updateParam(paramName, value) {
+            params[paramName] = parseFloat(value);
+            document.getElementById(paramName + '-value').textContent = value;
+            initializeSystem();
+        }
+
+        function updateColor(colorId, value) {
+            const idx = { color1: 0, color2: 1, color3: 2 }[colorId];
+            params.colorPalette[idx] = value;
+            document.getElementById(colorId + '-value').textContent = value;
+            initializeSystem();
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SEED CONTROL FUNCTIONS - ALWAYS KEEP THESE
+        // ═══════════════════════════════════════════════════════════════════════
+
+        function updateSeedDisplay() {
+            document.getElementById('seed-input').value = params.seed;
+        }
+
+        function updateSeed() {
+            let input = document.getElementById('seed-input');
+            let newSeed = parseInt(input.value);
+            if (newSeed && newSeed > 0) {
+                params.seed = newSeed;
+                initializeSystem();
+            } else {
+                updateSeedDisplay();
+            }
+        }
+
+        function previousSeed() {
+            params.seed = Math.max(1, params.seed - 1);
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function nextSeed() {
+            params.seed = params.seed + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function randomSeedAndUpdate() {
+            params.seed = Math.floor(Math.random() * 999999) + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function resetParameters() {
+            params = {...defaultParams};
+
+            const sliders = ['strataCount', 'sedimentDensity', 'turbulence',
+                             'crystalIntensity', 'ruptureProb', 'grainOpacity'];
+            for (const id of sliders) {
+                document.getElementById(id).value = params[id];
+                document.getElementById(id + '-value').textContent = params[id];
+            }
+            document.getElementById('color1').value = params.colorPalette[0];
+            document.getElementById('color1-value').textContent = params.colorPalette[0];
+            document.getElementById('color2').value = params.colorPalette[1];
+            document.getElementById('color2-value').textContent = params.colorPalette[1];
+            document.getElementById('color3').value = params.colorPalette[2];
+            document.getElementById('color3-value').textContent = params.colorPalette[2];
+
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        window.addEventListener('load', function() {
+            updateSeedDisplay();
+        });
+    </script>
+</body>
+</html>
