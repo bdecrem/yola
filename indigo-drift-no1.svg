@@ -40,7 +40,7 @@
       <stop offset="100%" stop-color="#0b0a18" stop-opacity="0.55"/>
     </radialGradient>
 
-    <!-- heavy displacement: landmass edges */
+    <!-- heavy displacement: landmass edges -->
     <filter id="drift" x="-30%" y="-30%" width="160%" height="160%">
       <feTurbulence type="turbulence" baseFrequency="0.005 0.011" numOctaves="3" seed="21" result="t"/>
       <feDisplacementMap in="SourceGraphic" in2="t" scale="46" xChannelSelector="R" yChannelSelector="G"/>
