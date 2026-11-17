@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Carmine Bloom No. 2
+  The bloom fills the frame edge to edge. No air, no ground, no distance.
+  The canvas IS the flesh: rose lobes at the rim, scarlet coral beyond,
+  carmine deepening through oxblood into a dark crimson heart that sits
+  just off center. Gill lines and stamens are the only quiet notes.
+  Pure shapes, gradients and filters - no outside fonts or images.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" role="img"
+     aria-label="Full-bleed red bloom: layered petals from rose rim to dark crimson heart, gold-tipped stamens">
+  <title>Carmine Bloom No. 2</title>
+
+  <defs>
+    <radialGradient id="heartGlow" cx="0.46" cy="0.44" r="0.62">
+      <stop offset="0%"   stop-color="#f2937e" stop-opacity="0.55"/>
+      <stop offset="45%"  stop-color="#e8604c" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#e8604c" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="vig" cx="0.5" cy="0.47" r="0.9">
+      <stop offset="0%"   stop-color="#2c0d14" stop-opacity="0"/>
+      <stop offset="78%"  stop-color="#2c0d14" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2c0d14" stop-opacity="0.42"/>
+    </radialGradient>
+
+    <!-- heavy fleshy displacement for the great lobes -->
+    <filter id="flesh" x="-35%" y="-35%" width="170%" height="170%">
+      <feTurbulence type="turbulence" baseFrequency="0.005 0.008" numOctaves="3" seed="23" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="55" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="fleshMid" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="turbulence" baseFrequency="0.010 0.015" numOctaves="3" seed="31" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="30" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="fleshFine" x="-25%" y="-25%" width="150%" height="150%">
+      <feTurbulence type="turbulence" baseFrequency="0.022 0.030" numOctaves="2" seed="47" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="11" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <filter id="soft10" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
+    <filter id="soft28" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="28"/></filter>
+
+    <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="19" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix"
+        values="0 0 0 0 0.30
+                0 0 0 0 0.13
+                0 0 0 0 0.12
+                0 0 0 0.4 0"/>
+    </filter>
+  </defs>
+
+  <!-- the flesh begins at the rim: no background, only petals -->
+  <rect x="0" y="0" width="1000" height="800" fill="#f4a08c"/>
+
+  <!-- great outer lobes: they run off all four edges -->
+  <g filter="url(#flesh)">
+    <ellipse cx="500" cy="400" rx="640" ry="240" fill="#f09b88" stroke="#e2846f" stroke-opacity="0.4" transform="rotate(12 500 400)"/>
+    <ellipse cx="500" cy="400" rx="655" ry="235" fill="#f4a08c" stroke="#e2846f" stroke-opacity="0.35" transform="rotate(54 500 400)"/>
+    <ellipse cx="500" cy="400" rx="630" ry="245" fill="#ee917e" stroke="#dd7a66" stroke-opacity="0.4" transform="rotate(97 500 400)"/>
+    <ellipse cx="500" cy="400" rx="645" ry="230" fill="#f4a08c" stroke="#e2846f" stroke-opacity="0.35" transform="rotate(141 500 400)"/>
+    <ellipse cx="500" cy="400" rx="638" ry="242" fill="#ef9380" stroke="#dd7a66" stroke-opacity="0.4" transform="rotate(183 500 400)"/>
+    <ellipse cx="500" cy="400" rx="650" ry="238" fill="#ee917e" stroke="#dd7a66" stroke-opacity="0.35" transform="rotate(227 500 400)"/>
+    <ellipse cx="500" cy="400" rx="642" ry="240" fill="#f09b88" stroke="#e2846f" stroke-opacity="0.4" transform="rotate(269 500 400)"/>
+    <ellipse cx="500" cy="400" rx="648" ry="236" fill="#f4a08c" stroke="#e2846f" stroke-opacity="0.35" transform="rotate(311 500 400)"/>
+  </g>
+
+  <!-- breathing depth across the whole field -->
+  <rect x="0" y="0" width="1000" height="800" fill="url(#heartGlow)"/>
+
+  <!-- second register: coral and scarlet, still running off the edges -->
+  <g filter="url(#flesh)">
+    <ellipse cx="500" cy="400" rx="480" ry="185" fill="#e8604c" stroke="#c94f3d" stroke-opacity="0.4" transform="rotate(26 500 400)"/>
+    <ellipse cx="500" cy="400" rx="495" ry="178" fill="#e05a44" stroke="#c94f3d" stroke-opacity="0.4" transform="rotate(71 500 400)"/>
+    <ellipse cx="500" cy="400" rx="470" ry="188" fill="#e8604c" stroke="#c94f3d" stroke-opacity="0.4" transform="rotate(118 500 400)"/>
+    <ellipse cx="500" cy="400" rx="490" ry="180" fill="#e05a44" stroke="#c94f3d" stroke-opacity="0.4" transform="rotate(163 500 400)"/>
+    <ellipse cx="500" cy="400" rx="485" ry="184" fill="#e8604c" stroke="#c94f3d" stroke-opacity="0.4" transform="rotate(209 500 400)"/>
+    <ellipse cx="500" cy="400" rx="492" ry="179" fill="#e05a44" stroke="#c94f3d" stroke-opacity="0.4" transform="rotate(255 500 400)"/>
+  </g>
+
+  <!-- inner carmine folds -->
+  <g filter="url(#fleshMid)">
+    <ellipse cx="500" cy="400" rx="330" ry="140" fill="#c0392b" stroke="#9c2d24" stroke-opacity="0.45" transform="rotate(34 500 400)"/>
+    <ellipse cx="500" cy="400" rx="320" ry="135" fill="#c53c2e" stroke="#9c2d24" stroke-opacity="0.4" transform="rotate(88 500 400)"/>
+    <ellipse cx="500" cy="400" rx="325" ry="138" fill="#c0392b" stroke="#9c2d24" stroke-opacity="0.45" transform="rotate(142 500 400)"/>
+    <ellipse cx="500" cy="400" rx="318" ry="134" fill="#c53c2e" stroke="#9c2d24" stroke-opacity="0.4" transform="rotate(196 500 400)"/>
+    <ellipse cx="500" cy="400" rx="328" ry="139" fill="#c0392b" stroke="#9c2d24" stroke-opacity="0.45" transform="rotate(250 500 400)"/>
+  </g>
+
+  <!-- oxblood folds closing around the heart -->
+  <g filter="url(#fleshMid)">
+    <ellipse cx="498" cy="402" rx="215" ry="98" fill="#a31f2b" transform="rotate(40 498 402)"/>
+    <ellipse cx="498" cy="402" rx="205" ry="94" fill="#98202c" transform="rotate(103 498 402)"/>
+    <ellipse cx="498" cy="402" rx="210" ry="96" fill="#a31f2b" transform="rotate(157 498 402)"/>
+    <ellipse cx="498" cy="402" rx="207" ry="95" fill="#98202c" transform="rotate(211 498 402)"/>
+  </g>
+
+  <!-- the heart, just off center -->
+  <g filter="url(#fleshFine)">
+    <circle cx="486" cy="396" r="128" fill="#7a1622"/>
+    <circle cx="480" cy="390" r="86"  fill="#5e1220"/>
+    <circle cx="474" cy="384" r="48"  fill="#43101e"/>
+    <circle cx="470" cy="380" r="22"  fill="#2e0b18"/>
+  </g>
+
+  <!-- gill lines across the flesh -->
+  <g fill="none" stroke="#5e1220" stroke-linecap="round" filter="url(#fleshFine)">
+    <path d="M 486 396 Q 580 350 700 330"   stroke-width="3"   opacity="0.5"/>
+    <path d="M 486 396 Q 620 410 780 460"   stroke-width="3.4" opacity="0.45"/>
+    <path d="M 486 396 Q 590 480 690 560"   stroke-width="3"   opacity="0.5"/>
+    <path d="M 486 396 Q 520 540 560 660"   stroke-width="3.4" opacity="0.4"/>
+    <path d="M 486 396 Q 420 540 340 640"   stroke-width="3"   opacity="0.5"/>
+    <path d="M 486 396 Q 350 500 240 560"   stroke-width="3.2" opacity="0.45"/>
+    <path d="M 486 396 Q 330 420 200 400"   stroke-width="3.4" opacity="0.4"/>
+    <path d="M 486 396 Q 360 330 250 260"   stroke-width="3"   opacity="0.5"/>
+    <path d="M 486 396 Q 440 280 420 160"   stroke-width="3.2" opacity="0.45"/>
+    <path d="M 486 396 Q 540 270 600 160"   stroke-width="3"   opacity="0.5"/>
+  </g>
+
+  <!-- stamens: the only gold in the dark -->
+  <g fill="none" stroke="#43101e" stroke-linecap="round" filter="url(#fleshFine)">
+    <path d="M 480 390 C 540 320 600 290 680 270" stroke-width="4"/>
+    <path d="M 480 390 C 570 380 660 390 750 440" stroke-width="4"/>
+    <path d="M 480 390 C 520 470 580 520 670 550" stroke-width="3.4"/>
+    <path d="M 480 390 C 400 460 320 490 230 500" stroke-width="3.4"/>
+    <path d="M 480 390 C 430 300 400 240 380 160" stroke-width="3.2"/>
+    <path d="M 480 390 C 350 340 260 300 160 280" stroke-width="3"/>
+  </g>
+  <g fill="#d9a441" filter="url(#fleshFine)">
+    <circle cx="682" cy="268" r="7"   opacity="0.95"/>
+    <circle cx="752" cy="442" r="7.5" opacity="0.95"/>
+    <circle cx="672" cy="552" r="6.5" opacity="0.9"/>
+    <circle cx="228" cy="502" r="6.5" opacity="0.9"/>
+    <circle cx="378" cy="158" r="6"   opacity="0.9"/>
+    <circle cx="158" cy="278" r="6"   opacity="0.9"/>
+  </g>
+
+  <!-- soft luminance breathing across the lobes -->
+  <g filter="url(#soft28)" opacity="0.5" style="mix-blend-mode:screen">
+    <ellipse cx="260" cy="180" rx="240" ry="130" fill="#f6b39e" opacity="0.5"/>
+    <ellipse cx="780" cy="620" rx="260" ry="140" fill="#f6b39e" opacity="0.4"/>
+  </g>
+  <g filter="url(#soft10)" opacity="0.35" style="mix-blend-mode:multiply">
+    <ellipse cx="820" cy="140" rx="220" ry="120" fill="#c0392b"/>
+    <ellipse cx="160" cy="660" rx="240" ry="130" fill="#c0392b"/>
+  </g>
+
+  <!-- vignette + canvas tooth -->
+  <rect x="0" y="0" width="1000" height="800" fill="url(#vig)"/>
+  <rect x="0" y="0" width="1000" height="800" filter="url(#grain)" opacity="0.22" style="mix-blend-mode:multiply"/>
+
+  <!-- signature -->
+  <text x="950" y="774" text-anchor="end" font-family="Georgia, 'Times New Roman', serif"
+        font-size="15" fill="#f4a08c" opacity="0.6">Carmine Bloom No. 2 — 2026</text>
+</svg>
