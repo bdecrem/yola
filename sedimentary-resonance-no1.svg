@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sedimentary Resonance No. 1
+  An abstract painting in SVG: an archive of strata laid down bottom-up,
+  a dominant oxide band ruptured by a bright fissure, crystalline chord
+  forms rising through the record, and a quiet pale sun over the field.
+  No outside fonts or images — pure shapes, gradients, and filters.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" role="img"
+     aria-label="Abstract painting: layered earth-toned strata with a red fissure band and pale sun">
+  <title>Sedimentary Resonance No. 1</title>
+
+  <defs>
+    <!-- canvas light -->
+    <radialGradient id="bgGrad" cx="0.5" cy="0.38" r="0.9">
+      <stop offset="0%"  stop-color="#f2ecdf"/>
+      <stop offset="62%" stop-color="#e9e1d0"/>
+      <stop offset="100%" stop-color="#ddd2bd"/>
+    </radialGradient>
+
+    <!-- sky wash -->
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#e9e4d5"/>
+      <stop offset="70%" stop-color="#d3d8c8"/>
+      <stop offset="100%" stop-color="#c3cfc0"/>
+    </linearGradient>
+
+    <!-- vignette -->
+    <radialGradient id="vig" cx="0.5" cy="0.45" r="0.78">
+      <stop offset="0%"   stop-color="#26221e" stop-opacity="0"/>
+      <stop offset="72%"  stop-color="#26221e" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#26221e" stop-opacity="0.22"/>
+    </radialGradient>
+
+    <!-- hand-painted rough edges: displace shapes with noise -->
+    <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="turbulence" baseFrequency="0.012 0.02" numOctaves="3" seed="7" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="roughBig" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="turbulence" baseFrequency="0.006 0.009" numOctaves="3" seed="3" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="30" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="roughFine" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="turbulence" baseFrequency="0.02 0.03" numOctaves="2" seed="11" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <!-- pigment grain over the whole canvas -->
+    <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="5" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix"
+        values="0 0 0 0 0.08
+                0 0 0 0 0.07
+                0 0 0 0 0.06
+                0 0 0 0.5 0"/>
+    </filter>
+  </defs>
+
+  <!-- ground -->
+  <rect x="0" y="0" width="1000" height="800" fill="url(#bgGrad)"/>
+
+  <!-- sky field -->
+  <g filter="url(#roughBig)">
+    <rect x="-40" y="-40" width="1080" height="480" fill="url(#skyGrad)" opacity="0.9"/>
+  </g>
+
+  <!-- sun with halo -->
+  <circle cx="312" cy="205" r="122" fill="#f6f0df" opacity="0.35" filter="url(#roughBig)"/>
+  <circle cx="312" cy="205" r="92"  fill="#f6f0df" filter="url(#roughFine)"/>
+
+  <!-- cloud washes: oxide and mineral, barely there -->
+  <ellipse cx="700" cy="160" rx="215" ry="50" fill="#b34a32" opacity="0.12" filter="url(#roughBig)"/>
+  <ellipse cx="760" cy="215" rx="180" ry="38" fill="#2f4f4a" opacity="0.10" filter="url(#roughBig)"/>
+
+  <!-- thin horizon mark -->
+  <g filter="url(#rough)">
+    <line x1="-20" y1="432" x2="1020" y2="428" stroke="#26221e" stroke-width="1.5" opacity="0.35"/>
+  </g>
+
+  <!-- ===== strata (the archive) ===== -->
+  <g filter="url(#rough)">
+    <!-- A: umber -->
+    <path d="M -40 448 Q 100 432 240 444 T 500 440 T 760 450 T 1040 438
+             L 1040 502 Q 900 512 760 500 T 500 506 T 240 498 T -40 504 Z"
+          fill="#8a6f52"/>
+    <!-- B: mineral -->
+    <path d="M -40 508 Q 140 496 280 506 T 540 502 T 800 512 T 1040 502
+             L 1040 570 Q 880 578 720 568 T 440 574 T 180 566 T -40 572 Z"
+          fill="#6a8c7d" opacity="0.88"/>
+    <!-- C: ochre -->
+    <path d="M -40 574 Q 120 562 260 572 T 520 566 T 780 576 T 1040 566
+             L 1040 616 Q 880 624 720 614 T 460 620 T 200 612 T -40 618 Z"
+          fill="#d9a45b" opacity="0.92"/>
+    <!-- D: dominant oxide -->
+    <path d="M -40 618 Q 130 604 270 616 T 530 610 T 790 622 T 1040 610
+             L 1040 700 Q 870 708 700 698 T 430 704 T 170 696 T -40 702 Z"
+          fill="#b34a32"/>
+    <!-- E: deep earth -->
+    <path d="M -40 700 Q 150 690 290 698 T 550 694 T 810 704 T 1040 694
+             L 1040 744 Q 880 752 720 742 T 460 748 T 200 740 T -40 746 Z"
+          fill="#4a3f35"/>
+    <!-- F: bass bed -->
+    <path d="M -40 746 Q 130 736 270 744 T 530 740 T 790 750 T 1040 740
+             L 1040 820 L -40 820 Z"
+          fill="#26221e"/>
+  </g>
+
+  <!-- sediment streaks (broken dashes read as deposition records) -->
+  <g stroke-linecap="round" filter="url(#rough)">
+    <line x1="-20" y1="522" x2="1020" y2="520" stroke="#26221e" stroke-width="2"   opacity="0.18" stroke-dasharray="70 26 120 18 90 34"/>
+    <line x1="-20" y1="540" x2="1020" y2="542" stroke="#26221e" stroke-width="1.6" opacity="0.14" stroke-dasharray="40 30 100 20 140 26"/>
+    <line x1="-20" y1="586" x2="1020" y2="584" stroke="#26221e" stroke-width="1.6" opacity="0.16" stroke-dasharray="90 24 60 30 120 20"/>
+    <line x1="-20" y1="632" x2="1020" y2="630" stroke="#f6ecd9" stroke-width="2.5" opacity="0.50" stroke-dasharray="60 22 130 16 80 30"/>
+    <line x1="-20" y1="652" x2="1020" y2="654" stroke="#f6ecd9" stroke-width="2"   opacity="0.40" stroke-dasharray="90 28 60 20 110 24"/>
+    <line x1="-20" y1="670" x2="1020" y2="668" stroke="#f6ecd9" stroke-width="1.6" opacity="0.30" stroke-dasharray="50 26 100 22 70 30"/>
+    <line x1="-20" y1="772" x2="1020" y2="770" stroke="#d9a45b" stroke-width="2"   opacity="0.15" stroke-dasharray="140 30 90 24 160 26"/>
+  </g>
+
+  <!-- fissure through the dominant band -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 468 606 L 452 626 L 476 640 L 458 658 L 486 672 L 470 694"
+          stroke="#f6f1e3" stroke-width="4.5" opacity="0.95" filter="url(#rough)"/>
+    <path d="M 480 608 L 464 628 L 488 642 L 470 660 L 498 674"
+          stroke="#d9a45b" stroke-width="1.6" opacity="0.7"  filter="url(#rough)"/>
+    <!-- small crack in the mineral band -->
+    <path d="M 148 506 L 140 524 L 152 540 L 144 558"
+          stroke="#efe9dd" stroke-width="2" opacity="0.35" filter="url(#rough)"/>
+  </g>
+
+  <!-- ===== crystalline register: chord forms rising ===== -->
+  <g stroke-width="1">
+    <polygon points="545,442 585,306 645,388" fill="#6a8c7d" fill-opacity="0.32" stroke="#2f4f4a" stroke-opacity="0.30"/>
+    <polygon points="600,446 668,278 716,398" fill="#b34a32" fill-opacity="0.24" stroke="#26221e" stroke-opacity="0.20"/>
+    <polygon points="655,448 706,342 736,436" fill="#26221e" fill-opacity="0.16" stroke="none"/>
+    <polygon points="505,440 532,368 560,436" fill="#d9a45b" fill-opacity="0.30" stroke="#26221e" stroke-opacity="0.15"/>
+    <polygon points="840,570 880,470 925,560" fill="#6a8c7d" fill-opacity="0.25" stroke="#2f4f4a" stroke-opacity="0.25"/>
+  </g>
+  <!-- harmonic overtones -->
+  <g stroke="#2f4f4a" stroke-width="1" opacity="0.32">
+    <line x1="640" y1="410" x2="560" y2="320"/>
+    <line x1="640" y1="410" x2="700" y2="300"/>
+    <line x1="640" y1="410" x2="745" y2="345"/>
+    <line x1="640" y1="410" x2="518" y2="362"/>
+    <line x1="640" y1="410" x2="760" y2="298"/>
+    <line x1="640" y1="410" x2="612" y2="288"/>
+  </g>
+
+  <!-- gestural marks -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 150 330 C 210 260, 300 250, 330 320 C 350 370, 290 400, 250 380"
+          stroke="#26221e" stroke-width="7"   opacity="0.75" filter="url(#rough)"/>
+    <path d="M 165 345 C 220 285, 295 275, 318 330"
+          stroke="#26221e" stroke-width="3.5" opacity="0.30" filter="url(#rough)"/>
+    <path d="M 840 150 C 880 130, 910 160, 895 190"
+          stroke="#b34a32" stroke-width="5"   opacity="0.50" filter="url(#rough)"/>
+    <line x1="60" y1="250" x2="210" y2="246" stroke="#26221e" stroke-width="2" opacity="0.30"/>
+  </g>
+
+  <!-- vignette + grain -->
+  <rect x="0" y="0" width="1000" height="800" fill="url(#vig)"/>
+  <rect x="0" y="0" width="1000" height="800" filter="url(#grain)" opacity="0.28" style="mix-blend-mode:multiply"/>
+
+  <!-- signature -->
+  <text x="952" y="776" text-anchor="end" font-family="Georgia, 'Times New Roman', serif"
+        font-size="15" fill="#26221e" opacity="0.6">Sedimentary Resonance No. 1 — 2026</text>
+</svg>
