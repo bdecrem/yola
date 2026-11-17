@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Slow Light No. 1
+  An abstract landscape reduced to what matters: a pale sky, one persimmon
+  sun, soft breathing hills, a quiet field, a dark still pool holding a
+  reflection, and a single ink tree. Dusk, without noise.
+  Pure shapes, gradients and filters - no outside fonts or images.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" role="img"
+     aria-label="Abstract dusk landscape: persimmon sun over soft sage hills and a dark still pool">
+  <title>Slow Light No. 1</title>
+
+  <defs>
+    <!-- dusk sky -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#f6efdd"/>
+      <stop offset="55%"  stop-color="#f3e3c6"/>
+      <stop offset="100%" stop-color="#eecfa8"/>
+    </linearGradient>
+
+    <!-- warm blush drifting through the sky -->
+    <linearGradient id="blush" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#e8b99a" stop-opacity="0"/>
+      <stop offset="45%"  stop-color="#e8b99a" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#e8b99a" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- the field -->
+    <linearGradient id="field" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#e9dfc4"/>
+      <stop offset="100%" stop-color="#ddd2b2"/>
+    </linearGradient>
+
+    <!-- the pool -->
+    <linearGradient id="pool" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#2a424a"/>
+      <stop offset="70%"  stop-color="#22343a"/>
+      <stop offset="100%" stop-color="#1c2b30"/>
+    </linearGradient>
+
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"   stop-color="#e8925e" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#e8925e" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="vig" cx="0.5" cy="0.45" r="0.85">
+      <stop offset="0%"   stop-color="#4a3c30" stop-opacity="0"/>
+      <stop offset="76%"  stop-color="#4a3c30" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#4a3c30" stop-opacity="0.20"/>
+    </radialGradient>
+
+    <!-- gentle hand-painted edges -->
+    <filter id="hand" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="turbulence" baseFrequency="0.012 0.018" numOctaves="3" seed="4" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- softer, farther: atmospheric distance -->
+    <filter id="handFar" x="-25%" y="-25%" width="150%" height="150%">
+      <feTurbulence type="turbulence" baseFrequency="0.008 0.012" numOctaves="3" seed="9" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="1.4"/>
+    </filter>
+
+    <filter id="soft8" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="soft18" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+
+    <!-- canvas tooth, multiplied, nearly silent -->
+    <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="6" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix"
+        values="0 0 0 0 0.30
+                0 0 0 0 0.26
+                0 0 0 0 0.20
+                0 0 0 0.35 0"/>
+    </filter>
+  </defs>
+
+  <!-- sky -->
+  <rect x="0" y="0" width="1000" height="800" fill="url(#sky)"/>
+  <rect x="0" y="235" width="1000" height="130" fill="url(#blush)" filter="url(#soft18)"/>
+
+  <!-- sun -->
+  <circle cx="628" cy="238" r="170" fill="url(#halo)"/>
+  <circle cx="628" cy="238" r="104" fill="#e8925e" opacity="0.35" filter="url(#soft8)"/>
+  <circle cx="628" cy="238" r="88"  fill="#d96f4a" filter="url(#hand)"/>
+
+  <!-- far hills: dusty mauve, breathing -->
+  <g filter="url(#handFar)">
+    <path d="M -40 470 C 150 400 340 415 520 452 C 700 488 860 440 1040 458 L 1040 560 L -40 560 Z"
+          fill="#b5a29a"/>
+  </g>
+  <!-- mid hills: sage -->
+  <g filter="url(#handFar)">
+    <path d="M -40 505 C 180 445 380 470 560 502 C 740 532 890 490 1040 505 L 1040 610 L -40 610 Z"
+          fill="#9aa88f"/>
+  </g>
+  <!-- near hill: deep olive -->
+  <g filter="url(#hand)">
+    <path d="M -40 545 C 220 500 420 522 640 548 C 810 566 930 548 1040 552 L 1040 640 L -40 640 Z"
+          fill="#6f7f66"/>
+  </g>
+
+  <!-- field -->
+  <g filter="url(#hand)">
+    <path d="M -40 612 L 1040 606 L 1040 668 L -40 672 Z" fill="url(#field)"/>
+    <!-- one thin field line, kept quiet -->
+    <line x1="-20" y1="636" x2="1020" y2="632" stroke="#8f8368" stroke-width="1.4" opacity="0.5"/>
+  </g>
+
+  <!-- the ink tree: one calligraphic note -->
+  <g filter="url(#hand)" stroke="#2e2a26" stroke-linecap="round" fill="none">
+    <path d="M 312 622 C 310 588 311 556 309 528" stroke-width="5"/>
+    <path d="M 310 560 C 296 548 288 540 282 528" stroke-width="3"/>
+    <path d="M 310 546 C 326 534 334 526 342 514" stroke-width="3"/>
+    <ellipse cx="308" cy="510" rx="34" ry="22" fill="#3d4a3c" stroke="none" opacity="0.92"/>
+  </g>
+
+  <!-- still pool -->
+  <g filter="url(#hand)">
+    <path d="M -40 668 C 240 660 520 674 760 668 C 880 666 970 670 1040 668 L 1040 840 L -40 840 Z"
+          fill="url(#pool)"/>
+  </g>
+
+  <!-- reflection: the sun dissolved into the water -->
+  <ellipse cx="622" cy="706" rx="74" ry="16" fill="#d96f4a" opacity="0.5"  filter="url(#soft8)"/>
+  <ellipse cx="622" cy="716" rx="52" ry="9"  fill="#e8925e" opacity="0.4" filter="url(#soft8)"/>
+  <ellipse cx="622" cy="726" rx="34" ry="6"  fill="#f3e3c6" opacity="0.3" filter="url(#soft8)"/>
+  <!-- ripples, barely lit -->
+  <g stroke-linecap="round" filter="url(#hand)">
+    <line x1="470" y1="700" x2="590" y2="700" stroke="#b9c4c2" stroke-width="1.4" opacity="0.35"/>
+    <line x1="660" y1="712" x2="820" y2="712" stroke="#b9c4c2" stroke-width="1.2" opacity="0.28"/>
+    <line x1="300" y1="740" x2="470" y2="740" stroke="#b9c4c2" stroke-width="1.2" opacity="0.2"/>
+    <line x1="600" y1="752" x2="700" y2="752" stroke="#b9c4c2" stroke-width="1"   opacity="0.18"/>
+  </g>
+
+  <!-- mirror of the hills, one soft suggestion -->
+  <path d="M -40 676 C 200 682 420 676 640 682 C 820 686 940 682 1040 680 L 1040 690 L -40 690 Z"
+        fill="#9aa88f" opacity="0.14" filter="url(#soft8)"/>
+
+  <!-- vignette and canvas tooth -->
+  <rect x="0" y="0" width="1000" height="800" fill="url(#vig)"/>
+  <rect x="0" y="0" width="1000" height="800" filter="url(#grain)" opacity="0.18" style="mix-blend-mode:multiply"/>
+
+  <!-- signature -->
+  <text x="950" y="774" text-anchor="end" font-family="Georgia, 'Times New Roman', serif"
+        font-size="15" fill="#f6efdd" opacity="0.55">Slow Light No. 1 — 2026</text>
+</svg>
