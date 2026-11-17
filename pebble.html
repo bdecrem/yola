@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PET-ROCK 3000 — Pebble Simulator</title>
+<style>
+  :root {
+    --beige: #d8cfc0;
+    --beige-dark: #b8ad9c;
+    --beige-shadow: #8f8474;
+    --screen: #9ead86;
+    --screen-dark: #819466;
+    --pixel: #2f3a23;
+    --accent: #d0483e;
+    --accent-dark: #9c3129;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background:
+      radial-gradient(circle at 20% 10%, #3b3f4a 0%, transparent 60%),
+      radial-gradient(circle at 80% 90%, #2c3040 0%, transparent 55%),
+      #232630;
+    font-family: "Courier New", Courier, monospace;
+    user-select: none;
+  }
+
+  /* ===== the handheld device ===== */
+  .device {
+    width: min(400px, 95vw);
+    background: linear-gradient(175deg, var(--beige) 0%, var(--beige-dark) 78%, var(--beige-shadow) 100%);
+    border-radius: 26px 26px 60px 26px;
+    padding: 1.1rem 1.1rem 1.6rem;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.55),
+      inset 0 -6px 12px rgba(0,0,0,.18),
+      0 24px 60px rgba(0,0,0,.55);
+    position: relative;
+  }
+  .device::before { /* speaker holes */
+    content: "";
+    position: absolute;
+    right: 22px; bottom: 26px;
+    width: 54px; height: 54px;
+    background-image: radial-gradient(circle, rgba(0,0,0,.35) 1.6px, transparent 2px);
+    background-size: 9px 9px;
+    border-radius: 50%;
+  }
+  .brand {
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: .95rem;
+    color: #4a4238;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  }
+  .brand small {
+    display: block;
+    font-size: .55rem;
+    letter-spacing: 2px;
+    color: #6d6355;
+  }
+  /* ===== screen bezel ===== */
+  .screen-frame {
+    margin: .8rem 0;
+    padding: 12px 12px 8px;
+    background: #5c5a52;
+    border-radius: 12px 12px 22px 12px;
+    box-shadow: inset 0 3px 8px rgba(0,0,0,.6), 0 1px 0 rgba(255,255,255,.35);
+  }
+  .screen {
+    background: linear-gradient(180deg, var(--screen) 0%, var(--screen-dark) 100%);
+    border: 3px solid #23241f;
+    border-radius: 6px;
+    padding: 10px 12px;
+    min-height: 208px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--pixel);
+    text-shadow: 1px 1px 0 rgba(255,255,255,.18);
+    box-shadow: inset 0 4px 10px rgba(0,0,0,.28);
+    position: relative;
+    overflow: hidden;
+  }
+  .screen::after { /* glass glare */
+    content: "";
+    position: absolute;
+    top: -60%; left: -30%;
+    width: 80%; height: 160%;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.16) 50%, transparent 60%);
+    transform: rotate(8deg);
+    pointer-events: none;
+  }
+  .screen .title {
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-bottom: 2px dashed rgba(47,58,35,.4);
+    padding-bottom: 4px;
+    margin-bottom: 2px;
+    white-space: pre-wrap;
+  }
+  .screen .art {
+    text-align: center;
+    white-space: pre;
+    font-size: 13px;
+    line-height: 1.28;
+  }
+  .screen .msg {
+    min-height: 56px;
+    white-space: pre-wrap;
+  }
+  .screen .stats {
+    margin-top: auto;
+    font-size: 11.5px;
+    letter-spacing: .5px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px dashed rgba(47,58,35,.4);
+    padding-top: 4px;
+  }
+  .blink-cursor {
+    display: inline-block;
+    width: 8px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ===== d-pad buttons ===== */
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(3, 64px);
+    grid-template-rows: repeat(2, 48px);
+    gap: 8px;
+    justify-content: center;
+    margin-top: 1.1rem;
+  }
+  .btn {
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #6b6560 0%, #4d4844 100%);
+    color: var(--beige);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 0 #2c2926, inset 0 1px 0 rgba(255,255,255,.25);
+    cursor: pointer;
+  }
+  .btn:active, .btn.pressed {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #2c2926, inset 0 1px 0 rgba(255,255,255,.15);
+  }
+  .btn.up    { grid-column: 2; grid-row: 1; }
+  .btn.left  { grid-column: 1; grid-row: 2; }
+  .btn.ok    { grid-column: 2; grid-row: 2; background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%); box-shadow: 0 4px 0 #6d1d16, inset 0 1px 0 rgba(255,255,255,.3); }
+  .btn.right { grid-column: 3; grid-row: 2; }
+  .hint {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: .7rem;
+    letter-spacing: 1px;
+    color: #5d5446;
+  }
+  @media (max-width: 420px) {
+    .controls { grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 44px); }
+    .screen { font-size: 12px; }
+  }
+</style>
+</style>
+</head>
+<body>
+  <div class="device">
+    <div class="brand">PET-ROCK 3000<small>PEBBLE SIMULATOR · EST. 1975</small></div>
+
+    <div class="screen-frame">
+      <div class="screen" id="screen">
+        <div class="title" id="title">PET-ROCK 3000</div>
+        <div class="art" id="art"></div>
+        <div class="msg" id="msg"></div>
+        <div class="stats" id="stats"></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn up"    id="b-up"    aria-label="up">▲</button>
+      <button class="btn left"  id="b-left"  aria-label="left">◀</button>
+      <button class="btn ok"    id="b-ok"    aria-label="ok">●</button>
+      <button class="btn right" id="b-right" aria-label="right">▶</button>
+    </div>
+
+    <div class="hint" id="hint">ARROW KEYS = NAVIGATE · ENTER = SELECT</div>
+  </div>
+<script>
+/* ============ pet rock simulator ============ */
+const $ = id => document.getElementById(id);
+const screenEl = $("screen"), titleEl = $("title"), artEl = $("art"),
+      msgEl = $("msg"), statsEl = $("stats"), hintEl = $("hint");
+
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+const pick  = arr => arr[Math.floor(Math.random() * arr.length)];
+
+/* ---------- rock art ---------- */
+const ROCKS = {
+  dwayne: [
+    "     _______     ",
+    "   /       \\   ",
+    "  |  ^   ^  |  ",
+    "  |    ▽    |  ",
+    "   \\_______/   "
+  ],
+  steve: [
+    "     ______     ",
+    "   /  ___  \\   ",
+    "  | | o o | |  ",
+    "  | |  ‿  | |  ",
+    "   \\______/   "
+  ],
+  gary: [
+    "    .-------.    ",
+    "   /         \\  ",
+    "  |  -     -  | ",
+    "  |     ω     | ",
+    "   \\_________/  "
+  ],
+  pebbleton: [
+    "      _____      ",
+    "   .-'     '-.  ",
+    "  |  ~     ~  | ",
+    "  |     o     | ",
+    "   '-._____.-'  "
+  ]
+};
+
+/* ---------- mood faces (drawn next to stats) ---------- */
+const MOOD_FACE = {
+  0: "dead", 1: "zzz", 2: "meh", 3: "ok", 4: "joy"
+};
+const FACES = {
+  dead: "×_×", zzz: "-_-", meh: "·_·", ok: "^_^", joy: "^o^"
+};
+
+/* ---------- game state ---------- */
+const state = {
+  screen: "splash",
+  rock: null,
+  stats: { boredom: 20, unboundedLove: 100, geology: 0 },
+  menuIndex: 0,
+  menuItems: ["ADOPT A ROCK", "CREDITS"],
+  creditIndex: 0,
+  flash: 0,
+  wiggle: 0
+};
+
+/* ============ screen renderers ============ */
+function render() {
+  const R = renderers[state.screen];
+  if (R) R();
+  screenEl.style.transform = state.wiggle ? `translate(${(Math.random()*2-1)*2}px, ${(Math.random()*2-1)*2}px)` : "";
+}
+
+const renderers = {
+  splash() {
+    titleEl.textContent = "PET-ROCK 3000";
+    artEl.textContent = [
+      " ______________________ ",
+      "|  ____________________  |",
+      "| | PEBBLE SIMULATOR  | |",
+      "| |     ROM v3.0      | |",
+      "| |____________________| |",
+      "|________________________|"
+    ].join("\n");
+    msgEl.innerHTML =
+      "© 1975 BOULDER CO.\nPRESS ● OR ENTER\nTO START<span class='blink-cursor'>▮</span>";
+    statsEl.textContent = "SOLID  ·  STABLE  ·  SEDIMENTARY";
+  },
+
+  menu() {
+    titleEl.textContent = "MAIN MENU";
+    artEl.textContent = ROCKS.dwayne.join("\n");
+    msgEl.innerHTML = state.menuItems
+      .map((item, i) => (i === state.menuIndex ? `> ${item} <` : `  ${item}`))
+      .join("\n");
+    statsEl.textContent = "SELECT WITH ●";
+  },
+
+  credits() {
+    titleEl.textContent = "CREDITS";
+    const lines = [
+      "A GAME BY BOULDER CO.",
+      "ROCK MODELING ....... D. JOHNSON",
+      "GEOLOGY CONSULTANT ... G. PEBSWORTH",
+      "EMOTION ENGINE ....... A LITERAL STONE",
+      "SPECIAL THANKS ....... GRAVITY"
+    ];
+    msgEl.innerHTML =
+      lines
+        .map((line, i) => (i === state.creditIndex ? `> ${line} <` : `  ${line}`))
+        .join("\n") +
+      "\n\n● = BACK";
+    statsEl.textContent = "SCROLL WITH ◀ ▶";
+  },
+
+  naming() {
+    titleEl.textContent = "ADOPTION PAPERS";
+    artEl.textContent = ROCKS.dwayne.join("\n");
+    msgEl.innerHTML =
+      `NAME YOUR ROCK:\n\n  ${state.rock.name}<span class='blink-cursor'>▮</span>\n\n` +
+      "▲ = NEXT LETTER\n◀ ▶ = MOVE CURSOR";
+    statsEl.textContent = "● = CONFIRM";
+  },
+
+  life() {
+    const s = state.rock;
+    titleEl.textContent = `${s.name.toUpperCase()} THE ROCK`;
+    artEl.textContent = s.art.join("\n");
+    const face = FACES[MOOD_FACE[mood()]];
+    msgEl.textContent = s.message;
+    statsEl.innerHTML =
+      `BOREDOM ${bar(100 - s.boredom)} ${face} · LOVE ∞ · APPENDAGES 0`;
+  }
+};
+
+function bar(pct) {
+  const blocks = Math.round(clamp(pct, 0, 100) / 10);
+  return "[" + "█".repeat(blocks) + "░".repeat(10 - blocks) + "]";
+}
+
+function mood() {
+  const b = state.rock.boredom;
+  if (b >= 95) return 0;
+  if (b >= 75) return 1;
+  if (b >= 45) return 2;
+  if (b >= 20) return 3;
+  return 4;
+}
+
+/* ---------- naming via up/left/right ---------- */
+const LETTERS = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+function nameCharStep(dir) {
+  const s = state.rock;
+  const i = LETTERS.indexOf(s.name[s.cursor]);
+  const next = clamp(i + dir, 0, LETTERS.length - 1);
+  const name = s.name.split("");
+  name[s.cursor] = LETTERS[next];
+  s.name = name.join("");
+}
+
+/* ============ actions per screen ============ */
+const actions = {
+  splash: {
+    ok() { go("menu"); },
+    up() { flash(); },
+    left() { flash(); },
+    right() { flash(); }
+  },
+  menu: {
+    up() { state.menuIndex = (state.menuIndex + 1) % state.menuItems.length; },
+    ok() {
+      if (state.menuIndex === 0) adopt();
+      else go("credits");
+    },
+    left() { flash(); },
+    right() { flash(); }
+  },
+  credits: {
+    left()  { state.creditIndex = (state.creditIndex + 4) % 5; },
+    right() { state.creditIndex = (state.creditIndex + 1) % 5; },
+    ok()    { go("menu"); },
+    up()    { flash(); }
+  },
+  naming: {
+    up()   { nameCharStep(1); },
+    left() { state.rock.cursor = clamp(state.rock.cursor - 1, 0, state.rock.name.length - 1); },
+    right(){ state.rock.cursor = clamp(state.rock.cursor + 1, 0, state.rock.name.length - 1); },
+    ok()   { startLife(); }
+  },
+  life: {
+    up()    { pet(); },
+    left()  { talkTo(); },
+    right() { takeForWalk(); },
+    ok()    { doNothing(); }
+  }
+};
+
+function go(screen) { state.screen = screen; render(); }
+
+function flash() {
+  msgEl.style.opacity = ".4";
+  setTimeout(() => { msgEl.style.opacity = ""; }, 120);
+}
+
+/* ---------- adoption ---------- */
+const NAMES = ["Dwayne", "Steve", "Gary", "Pebbleton"];
+function adopt() {
+  const speciesList = Object.keys(ROCKS);
+  const species = speciesList[Math.floor(Math.random() * speciesList.length)];
+  state.rock = {
+    name: NAMES[speciesList.indexOf(species)],
+    species,
+    cursor: 0,
+    art: ROCKS[species],
+    boredom: 20,
+    message: "",
+    actions: 0,
+    bornAt: Date.now()
+  };
+  go("naming");
+}
+
+function startLife() {
+  state.rock.name = state.rock.name.trim() || "Dwayne";
+  state.rock.message = "I EXIST. I AM SO HAPPY.";
+  go("life");
+  hintEl.textContent = "▲ PET · ◀ TALK · ▶ WALK · ● DO NOTHING";
+  scheduleTick();
+}
+
+/* ---------- interaction dialogue ---------- */
+const PET_LINES = [
+  "PETTING INTENSIFIES.",
+  "I VIBRATE WITH JOY.",
+  "THIS IS MY PURPOSE.",
+  "EMOTION DETECTED.",
+  "MY SURFACE IS PLEASED."
+];
+const TALK_LINES = [
+  "I HAVE BEEN A ROCK FOR\n6,000,000 YEARS.\nEVERY DAY IS THE SAME.",
+  "I DREAMED I WAS A\nMOUNTAIN. I WAS.\nI STILL AM.",
+  "I DO NOT HAVE EARS.\nI HEARD YOU ANYWAY.",
+  "ONE DAY I WILL BE SAND.\nIT IS FINE.\nI HAVE PLANS.",
+  "MY THERAPIST IS ALSO\nA ROCK. IT LISTENS.",
+  "MOSS GREW ON ME ONCE.\nBEST WEEK OF MY LIFE.",
+  "I HAVE NEVER COMPLAINED\nIN MY ENTIRE LIFE."
+];
+const WALK_LINES = [
+  "WE MOVED 0.3 METERS.",
+  "I ROLLED. SORT OF.",
+  "VELOCITY ACHIEVED.",
+  "GRAVITY DID MOST OF IT.",
+  "THE JOURNEY WAS INTERNAL."
+];
+const NOTHING_LINES = [
+  "EXCELLENT. NOTHING HAPPENED.",
+  "WE ARE BOTH SO GOOD AT THIS.",
+  "MY KIND OF STIMULATION.",
+  "AH. SEDENTARY BLISS.",
+  "THIS IS WHAT I TRAINED FOR."
+];
+const IDLE_LINES = [
+  "JUST BEING A ROCK.",
+  "MINERAL VIBES ONLY.",
+  "I AM STILL HERE.",
+  "GEOLOGICALLY SPEAKING,\nNOTHING HAS HAPPENED.",
+  "I COUNTED MY QUARTZ.\nSTILL HAVE IT.",
+  "WEATHER REPORT: NONE.",
+  "I AM AT PEACE.",
+  "LET THE RECORD SHOW:\nI DID NOT MOVE."
+];
+
+function pet()        { react(pick(PET_LINES), -12, 1); }
+function talkTo()     { react(pick(TALK_LINES), -6, 1); }
+function takeForWalk(){ react(pick(WALK_LINES), -9, 2); }
+function doNothing()  { react(pick(NOTHING_LINES), 2, 0); }
+
+function react(msg, boredomDelta, wiggle) {
+  const s = state.rock;
+  s.message = msg;
+  s.boredom = clamp(s.boredom + boredomDelta, 0, 100);
+  s.actions++;
+  state.wiggle = wiggle;
+  render();
+  setTimeout(() => { state.wiggle = 0; render(); }, 260);
+}
+
+/* ---------- idle ticks: boredom rises, rock comments ---------- */
+function scheduleTick() {
+  clearInterval(state.tickTimer);
+  state.tickTimer = setInterval(() => {
+    if (state.screen !== "life") return;
+    const s = state.rock;
+    s.boredom = clamp(s.boredom + 4, 0, 100);
+    if (Math.random() < 0.5) s.message = pick(IDLE_LINES);
+    render();
+  }, 5000);
+}
+
+/* ============ input wiring ============ */
+function press(btn, actionName) {
+  const a = actions[state.screen] && actions[state.screen][actionName];
+  btn.classList.add("pressed");
+  setTimeout(() => btn.classList.remove("pressed"), 110);
+  if (a) a();
+  render();
+}
+
+const buttons = {
+  up:    $("b-up"),
+  left:  $("b-left"),
+  ok:    $("b-ok"),
+  right: $("b-right")
+};
+
+Object.entries(buttons).forEach(([actionName, btn]) => {
+  btn.addEventListener("click", () => press(btn, actionName));
+});
+
+const KEY_MAP = {
+  ArrowUp: "up", ArrowLeft: "left", ArrowRight: "right",
+  Enter: "ok", " ": "ok"
+};
+document.addEventListener("keydown", e => {
+  const actionName = KEY_MAP[e.key];
+  if (!actionName) return;
+  e.preventDefault();
+  press(buttons[actionName], actionName);
+});
+
+/* first paint */
+render();
+</script>
+</body>
+</html>

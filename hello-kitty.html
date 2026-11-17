@@ -66,7 +66,25 @@
   }
 
   /* ---- the cat (all CSS, original cute design) ---- */
-  .cat { position: relative; width: 260px; height: 230px; }
+  .cat {
+    position: relative;
+    width: 260px;
+    height: 230px;
+    animation: dance 1.2s ease-in-out infinite;
+    transform-origin: 50% 90%;
+  }
+
+  /* the dance moves: bounce, sway, and a little spin every few beats */
+  @keyframes dance {
+    0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+    12%      { transform: translateY(-16px) rotate(-6deg) scale(1.02); }
+    25%      { transform: translateY(0) rotate(0deg) scale(.98); }
+    37%      { transform: translateY(-16px) rotate(6deg) scale(1.02); }
+    50%      { transform: translateY(0) rotate(0deg) scale(.98); }
+    62%      { transform: translateY(-12px) rotate(-8deg); }
+    75%      { transform: translateY(0) rotate(8deg); }
+    87%      { transform: translateY(-10px) rotate(0deg) scale(1.03); }
+  }
 
   .head {
     position: absolute;
@@ -91,6 +109,20 @@
   }
   .ear.left  { left: 22px;  transform: rotate(-22deg); }
   .ear.right { right: 22px; transform: rotate(22deg); }
+
+  /* ears twitch while dancing */
+  .ear.left  { animation: ear-left 1.2s ease-in-out infinite; }
+  .ear.right { animation: ear-right 1.2s ease-in-out infinite; }
+  @keyframes ear-left {
+    0%, 100% { transform: rotate(-22deg); }
+    25%      { transform: rotate(-34deg); }
+    50%      { transform: rotate(-18deg); }
+  }
+  @keyframes ear-right {
+    0%, 100% { transform: rotate(22deg); }
+    25%      { transform: rotate(34deg); }
+    50%      { transform: rotate(18deg); }
+  }
 
   /* eyes */
   .eye {
@@ -185,14 +217,37 @@
     0%, 100% { transform: scale(.7); opacity: .4; }
     50% { transform: scale(1.2); opacity: 1; }
   }
+
+  /* dancing music notes around the cat */
+  .note {
+    position: absolute;
+    font-size: 1.8rem;
+    color: var(--red);
+    opacity: 0;
+    animation: pop-note 1.2s ease-out infinite;
+    user-select: none;
+    pointer-events: none;
+  }
+  .note.n1 { left: -46px; top: 40%;  animation-delay: .15s; }
+  .note.n2 { right: -46px; top: 30%; animation-delay: .55s; }
+  .note.n3 { left: 20px; top: -44px; animation-delay: .85s; }
+  @keyframes pop-note {
+    0%   { transform: translateY(0) scale(.6); opacity: 0; }
+    25%  { opacity: 1; }
+    100% { transform: translateY(-34px) scale(1.15) rotate(10deg); opacity: 0; }
+  }
 </style>
 </head>
 <body>
 
-  <div class="cat" aria-label="cute cat">
+  <div class="cat" aria-label="dancing cat">
     <div class="sparkle s1">✦</div>
     <div class="sparkle s2">✦</div>
     <div class="sparkle s3">✦</div>
+
+    <div class="note n1">♪</div>
+    <div class="note n2">♫</div>
+    <div class="note n3">♪</div>
 
     <div class="bow">
       <div class="loop left"></div>
@@ -215,7 +270,7 @@
 
   <div class="card">
     <h1>Hello World</h1>
-    <p class="sub">♥ so kawaii ~ nyaa ♥</p>
+    <p class="sub">♥ dance dance revolution ~ nyaa ♪</p>
   </div>
 
 <script>
