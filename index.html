@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hello World ♥</title>
+<style>
+  :root {
+    --pink: #ffb6d5;
+    --pink-deep: #ff8ac2;
+    --pink-soft: #ffe3f0;
+    --white: #fff9fc;
+    --red: #ff5b8d;
+    --ink: #7a4a63;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: linear-gradient(160deg, var(--pink-soft) 0%, var(--pink) 55%, var(--pink-deep) 100%);
+    font-family: "Comic Sans MS", "Chalkboard SE", "Segoe UI", cursive, sans-serif;
+    overflow: hidden;
+    color: var(--ink);
+  }
+
+  /* floating hearts background */
+  .heart {
+    position: fixed;
+    bottom: -40px;
+    font-size: 1.4rem;
+    opacity: .5;
+    animation: float-up 9s linear infinite;
+    user-select: none;
+    pointer-events: none;
+  }
+  @keyframes float-up {
+    to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+  }
+
+  .card {
+    background: var(--white);
+    border: 4px solid #fff;
+    border-radius: 40px;
+    padding: 3rem 4rem;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(255, 91, 141, .35);
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    letter-spacing: 2px;
+    color: var(--red);
+    text-shadow: 2px 2px 0 #fff, 4px 4px 0 var(--pink);
+  }
+
+  p.sub {
+    margin-top: .75rem;
+    font-size: 1.1rem;
+    opacity: .8;
+  }
+
+  /* ---- the cat (all CSS, original cute design) ---- */
+  .cat { position: relative; width: 260px; height: 230px; }
+
+  .head {
+    position: absolute;
+    inset: 30px 20px 0 20px;
+    background: #fff;
+    border: 3px solid #3d2b39;
+    border-radius: 50% 50% 48% 48% / 55% 55% 45% 45%;
+    box-shadow: 0 10px 24px rgba(255, 91, 141, .35);
+  }
+
+  /* ears */
+  .ear {
+    position: absolute;
+    top: 0;
+    width: 70px;
+    height: 70px;
+    background: #fff;
+    border: 3px solid #3d2b39;
+    border-bottom: none;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    border-radius: 16px 16px 0 0;
+  }
+  .ear.left  { left: 22px;  transform: rotate(-22deg); }
+  .ear.right { right: 22px; transform: rotate(22deg); }
+
+  /* eyes */
+  .eye {
+    position: absolute;
+    top: 52%;
+    width: 16px;
+    height: 22px;
+    background: #3d2b39;
+    border-radius: 50%;
+    animation: blink 4.5s infinite;
+  }
+  .eye.left  { left: 26%; }
+  .eye.right { right: 26%; }
+  @keyframes blink {
+    0%, 92%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(.1); }
+  }
+
+  /* nose */
+  .nose {
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 10px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+
+  /* whiskers */
+  .whisker {
+    position: absolute;
+    top: 66%;
+    width: 48px;
+    height: 2px;
+    background: #3d2b39;
+    border-radius: 2px;
+  }
+  .whisker.l1 { left: -6px;  transform: rotate(8deg); }
+  .whisker.l2 { left: -2px;  top: 74%; transform: rotate(-6deg); }
+  .whisker.r1 { right: -6px; transform: rotate(-8deg); }
+  .whisker.r2 { right: -2px; top: 74%; transform: rotate(6deg); }
+
+  /* the bow */
+  .bow {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    width: 78px;
+    height: 52px;
+    z-index: 2;
+    filter: drop-shadow(0 4px 6px rgba(255, 91, 141, .4));
+    animation: wiggle 3s ease-in-out infinite;
+  }
+  .bow .loop {
+    position: absolute;
+    top: 0;
+    width: 38px;
+    height: 40px;
+    background: var(--red);
+    border-radius: 60% 60% 60% 60% / 70% 70% 40% 40%;
+  }
+  .bow .loop.left  { left: 0;  transform: rotate(-14deg); }
+  .bow .loop.right { right: 0; transform: rotate(14deg); }
+  .bow .knot {
+    position: absolute;
+    left: 50%;
+    top: 12px;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: #ff7aa5;
+    border-radius: 8px;
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(6deg); }
+  }
+
+  .sparkle {
+    position: absolute;
+    color: #ffd54a;
+    font-size: 1.6rem;
+    animation: twinkle 1.8s ease-in-out infinite;
+    user-select: none;
+  }
+  .sparkle.s1 { top: -14px; left: -26px; animation-delay: 0s; }
+  .sparkle.s2 { top: 30px;  right: -34px; animation-delay: .6s; }
+  .sparkle.s3 { bottom: -10px; left: 40px; animation-delay: 1.2s; }
+  @keyframes twinkle {
+    0%, 100% { transform: scale(.7); opacity: .4; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="cat" aria-label="cute cat">
+    <div class="sparkle s1">✦</div>
+    <div class="sparkle s2">✦</div>
+    <div class="sparkle s3">✦</div>
+
+    <div class="bow">
+      <div class="loop left"></div>
+      <div class="loop right"></div>
+      <div class="knot"></div>
+    </div>
+
+    <div class="ear left"></div>
+    <div class="ear right"></div>
+    <div class="head">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="nose"></div>
+      <div class="whisker l1"></div>
+      <div class="whisker l2"></div>
+      <div class="whisker r1"></div>
+      <div class="whisker r2"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h1>Hello World</h1>
+    <p class="sub">♥ so kawaii ~ nyaa ♥</p>
+  </div>
+
+<script>
+  // gently floating hearts
+  for (let i = 0; i < 14; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = ["♥", "♡", "✿"][i % 3];
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.fontSize = 0.8 + Math.random() * 1.4 + "rem";
+    h.style.animationDuration = 7 + Math.random() * 6 + "s";
+    h.style.animationDelay = Math.random() * 8 + "s";
+    document.body.appendChild(h);
+  }
+</script>
+</body>
+</html>
