@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lawrence Cheung: Linguistics, University of Hong Kong</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="palette.css">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root {
+    --sans: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --serif: "Literata", Georgia, "Times New Roman", serif;
+    --small: 13px; --ui: 15px; --read: 17px; --h2: 21px;
+    --title: clamp(28px, 4vw + 12px, 44px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 var(--read)/1.6 var(--sans); }
+  main { max-width: 1040px; margin: 0 auto; padding: 32px 16px 64px; }
+  @media (min-width: 720px) { main { padding: 48px 32px 96px; } }
+  h1, h2, h3 { line-height: 1.15; margin: 0; text-wrap: balance; }
+  h1 { font-size: var(--title); font-weight: 700; letter-spacing: -0.01em; }
+  h2 { font-size: var(--h2); font-weight: 650; margin-top: 56px; margin-bottom: 12px; }
+  h3 { font-size: var(--read); font-weight: 650; margin-top: 24px; margin-bottom: 4px; }
+  p, li { max-width: 66ch; text-wrap: pretty; }
+  p { margin: 0 0 16px; }
+  small, .note { font-size: var(--small); line-height: 1.45; color: var(--ink-3); }
+  a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  img, svg, video, canvas { max-width: 100%; height: auto; }
+  .num { font-variant-numeric: tabular-nums; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+  nav { max-width: 1040px; margin: 0 auto; padding: 16px; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: baseline; }
+  nav b { font-size: var(--ui); font-weight: 700; }
+  nav ul { display: flex; flex-wrap: wrap; gap: 4px 20px; list-style: none; margin: 0; padding: 0; font-size: var(--ui); }
+  nav a { color: var(--ink-2); text-decoration: none; padding: 8px 0; display: inline-block; }
+  nav a[aria-current] { color: var(--ink); box-shadow: inset 0 -2px var(--accent); }
+  .hero { display: grid; gap: 24px; padding: 24px 0 48px; border-bottom: 1px solid var(--rule); }
+  @media (min-width: 820px) { .hero { grid-template-columns: 1.4fr 1fr; align-items: end; } }
+  .hero p { font-size: var(--read); color: var(--ink-2); margin: 12px 0 0; }
+  .when { font-size: clamp(30px, 2vw + 22px, 40px); font-weight: 700; line-height: 1; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .study { font-family: var(--serif); font-style: italic; color: var(--ink-2); }
+  .figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px 32px; margin: 32px 0; }
+  .figures div { border-top: 1px solid var(--ink); padding-top: 12px; }
+  .figures .n { display: block; font-size: clamp(30px, 2vw + 22px, 40px); font-weight: 700; line-height: 1; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .figures .lab { display: block; font-size: var(--ui); color: var(--ink-2); margin-top: 6px; }
+  .table-wrap { overflow-x: auto; margin: 16px 0 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: var(--ui); }
+  th { text-align: left; font-weight: 600; color: var(--ink-2); padding: 8px 16px 8px 0; border-bottom: 1px solid var(--ink); white-space: nowrap; }
+  td { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 700; border-bottom: 0; }
+  figure { margin: 24px 0; }
+  figure h3 { margin: 0 0 12px; }
+  figcaption { font-size: var(--small); color: var(--ink-3); margin-top: 8px; }
+  .foot { margin-top: 64px; background: var(--ink); color: var(--paper); }
+  .foot div { max-width: 1040px; margin: 0 auto; padding: 32px 16px; display: grid; gap: 8px; font-size: var(--ui); }
+  .foot a { color: var(--paper); }
+</style>
+</head>
+<body>
+<nav aria-label="Main">
+  <b>Lawrence Cheung</b>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#interests">Interests</a></li>
+    <li><a href="#study">Study</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+<main>
+  <section class="hero">
+    <div>
+      <h1>Lawrence Cheung</h1>
+      <p class="study">Year 4, double major in Linguistics and Philosophy, minor in Cognitive Science — University of Hong Kong</p>
+      <p>His work concerns the nature of meaning, semantics and pragmatics, and how people acquire it, and what linguistic knowledge is and how it differs from other kinds of knowledge, such as our understanding of the empirical world and morality.</p>
+    </div>
+    <div>
+      <p><a href="mailto:ulawlaw@connect.hku.hk">Email Lawrence</a></p>
+    </div>
+  </section>
+
+  <h2 id="about">About</h2>
+  <p>Lawrence Cheung is a year 4 undergraduate student at the University of Hong Kong, pursuing a double major in Linguistics and Philosophy with a minor in Cognitive Science. He is affiliated with the Brain and Second Language Research Laboratory in the Department of Linguistics.</p>
+  <p>He is particularly interested in the nature of meaning, encompassing both semantics and pragmatics, as well as the processes through which people acquire this knowledge. He is also interested in the nature of linguistic knowledge in general and how it differs from other domains of knowledge, such as our understanding of the empirical world and morality.</p>
+
+  <h2 id="interests">Interests</h2>
+  <div style="overflow-x:auto">
+  <table>
+    <thead>
+      <tr><th>Area</th><th>Focus</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Semantics</td><td>The nature of meaning in language</td></tr>
+      <tr><td>Pragmatics</td><td>How context shapes interpretation</td></tr>
+      <tr><td>Language acquisition</td><td>Processes through which knowledge of meaning is acquired</td></tr>
+      <tr><td>Linguistic knowledge</td><td>How it differs from knowledge of the empirical world and morality</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Source: Brain and Second Language Research Laboratory, University of Hong Kong, retrieved 2026-11-18.</p>
+
+  <h2 id="study">Study</h2>
+  <div class="figures">
+    <div><span class="n">2</span><span class="lab">Majors: Linguistics and Philosophy</span></div>
+    <div><span class="n">1</span><span class="lab">Minor: Cognitive Science</span></div>
+    <div><span class="n">1</span><span class="lab">University: University of Hong Kong</span></div>
+  </div>
+
+  <h2 id="contact">Contact</h2>
+  <p>Email: <a href="mailto:ulawlaw@connect.hku.hk">ulawlaw@connect.hku.hk</a></p>
+  <p>Brain and Second Language Research Laboratory, Department of Linguistics, University of Hong Kong.</p>
+</main>
+<footer class="foot"><div><b>Lawrence Cheung</b><span>Personal page. Information from the University of Hong Kong, retrieved 2026-11-18.</span></div></footer>
+</body>
+</html>

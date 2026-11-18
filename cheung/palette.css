@@ -1,0 +1,13 @@
+/* palette.py: hue 220, chroma 0.130, neutrals warm */
+:root {
+  --paper: #fdf9f4;
+  --surface: #f5efe7;
+  --rule: #ded6cc;
+  --ink: #261e12;
+  --ink-2: #554b3f;
+  --ink-3: #716b62;
+  --accent: #05687f;
+  --on-accent: #fdf9f4;
+  --accent-wash: #cef2ff;
+  --alert: #c44323;
+}
