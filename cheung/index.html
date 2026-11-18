@@ -38,8 +38,10 @@
   nav a { color: var(--ink-2); text-decoration: none; padding: 8px 0; display: inline-block; }
   nav a[aria-current] { color: var(--ink); box-shadow: inset 0 -2px var(--accent); }
   .hero { display: grid; gap: 24px; padding: 24px 0 48px; border-bottom: 1px solid var(--rule); }
-  @media (min-width: 820px) { .hero { grid-template-columns: 1.4fr 1fr; align-items: end; } }
+  @media (min-width: 820px) { .hero { grid-template-columns: 1.4fr 1fr; align-items: start; } }
   .hero p { font-size: var(--read); color: var(--ink-2); margin: 12px 0 0; }
+  .portrait img { max-width: 300px; width: 100%; height: auto; border-radius: 6px; display: block; margin: 0 auto 8px; }
+  @media (min-width: 820px) { .portrait img { max-width: none; width: 100%; margin: 0 0 8px; } }
   .when { font-size: clamp(30px, 2vw + 22px, 40px); font-weight: 700; line-height: 1; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
   .study { font-family: var(--serif); font-style: italic; color: var(--ink-2); }
   .figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px 32px; margin: 32px 0; }
@@ -77,8 +79,9 @@
       <p class="study">Year 4, double major in Linguistics and Philosophy, minor in Cognitive Science — University of Hong Kong</p>
       <p>His work concerns the nature of meaning, semantics and pragmatics, and how people acquire it, and what linguistic knowledge is and how it differs from other kinds of knowledge, such as our understanding of the empirical world and morality.</p>
     </div>
-    <div>
-      <p><a href="mailto:ulawlaw@connect.hku.hk">Email Lawrence</a></p>
+    <div class="portrait">
+      <img src="images/lawrence.jpg" alt="Lawrence Cheung" width="795" height="1024">
+      <p class="note">Photo: Brain and Second Language Research Laboratory, University of Hong Kong.</p>
     </div>
   </section>
 
